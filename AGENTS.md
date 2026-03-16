@@ -210,6 +210,16 @@ PLAN [approve] → BUILD → DIFF → QA [pass] → APPROVAL [approve] → APPLY
   └───────────────────────────────────[major changes needed]─────┘
 ```
 
+### Available Workflow Skills
+
+Before beginning or transitioning states, you should load the relevant skill file:
+- **Idea Generation**: `.agent/skills/brainstorming-features/SKILL.md`
+- **PLAN State**: `.agent/skills/writing-plans/SKILL.md`
+- **BUILD State**: `.agent/skills/executing-plans/SKILL.md`
+- **BUILD (Coding)**: `.agent/skills/test-driven-development/SKILL.md`
+- **QA (Debugging)**: `.agent/skills/systematic-debugging/SKILL.md`
+- **QA to APPROVAL Gate**: `.agent/skills/verification-before-completion/SKILL.md`
+
 ---
 
 ### PLAN
