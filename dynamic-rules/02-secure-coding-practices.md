@@ -36,10 +36,20 @@ Once you have analyzed the repo, you MUST use the `notify_user` pattern to start
 *Proceed to Phase 3 ONLY after the user has responded, negotiated, and explicitly approved the final non-negotiables.*
 
 ## Phase 3: Rule Generation ⚙️
-Using the agreed-upon constraints from Phase 2, generate a highly specific `projectRules.md` or `.agent/skills/secure-coding-practices.md` document for this repository. 
+Using the agreed-upon constraints from Phase 2, generate a highly specific constraint document tailored to this repository.
 
-Format the generated skill as a set of non-negotiable "Iron Laws" broken down by the 5 core areas negotiated above.
+**Critical Formatting Constraints:**
+*   Rules must be highly concise, bulleted, and no longer than necessary to prevent LLM context bloat. Avoid verbose explanations.
+*   You MUST include a meta-rule stating: *"These project-specific constraints supersede any generic universal skills."*
+
+Format the generated constraint as a set of non-negotiable "Iron Laws" broken down by the core areas negotiated above.
 
 ## Phase 4: Output and Delivery 💾
-Write the generated, agreed-upon ruleset directly into the target project's `.agent/projectRules.md` (or equivalent location). **Do NOT** write the project-specific rules back into the generic `uber-ai-workflow` skills repository. 
+You MUST adhere to the `AGENTS.md` state machine (PLAN -> BUILD -> DIFF -> QA -> APPROVAL -> APPLY).
+
+1. Generate a proposed `DIFF` containing the new rules.
+2. You MUST read the existing `memory-bank/projectRules.md` file first and strictly APPEND your new section titled **`### Secure Coding Practices`** to ensure you do not overwrite existing rules.
+3. Present the `DIFF` to the user and ask for explicit `APPROVAL`.
+4. Once approved, write the generated, agreed-upon ruleset directly into the target project's Memory Bank at `memory-bank/projectRules.md`. 
+**Do NOT** write the project-specific rules back into the generic `uber-ai-workflow` skills repository. 
 Notify the user with a brief summary of the exact security constraints that were written.
