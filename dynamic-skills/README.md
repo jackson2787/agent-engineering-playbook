@@ -1,12 +1,12 @@
-# Dynamic Project Rules
+# Dynamic Project Skills
 
-Welcome to the **Dynamic Rules** engine. 
+Welcome to the **Dynamic Skills** engine. 
 
-While `.agent/skills/` contains universally applied behaviors (like Test-Driven Development or Systematic Debugging), this folder contains **Project Initialization Generators**. 
+While the standard `.agent/skills/` directory contains universally applied behaviors (like Test-Driven Development, Vercel React Best Practices, or Systematic Debugging), this folder contains **Project Initialization Generators**. 
 
 Because every codebase uses a different tech stack (e.g., Next.js vs Expo, Vercel vs AWS, Zustand vs Redux), security and architectural rules cannot be "one size fits all." If you apply Next.js security rules to an Expo app, the app will break.
 
-These scripts solve that. When you start a brand new repository, you instruct your AI agent to run through these numbered scripts. The AI will scan the codebase, analyze the specific tech stack, negotiate the rules with you, and then hardcode absolute constraints directly into your `memory-bank/projectRules.md` file.
+These scripts solve that. When you start a brand new repository, you instruct your AI agent to run through these numbered scripts. The AI will scan the codebase, analyze the specific tech stack, negotiate the rules with you, and then hardcode absolute constraints directly into your `.agent/skills/project-*/SKILL.md` files. This ensures your project-specific "Local Laws" complement your foundational Vercel/Supabase "Constitution".
 
 ## Execution Sequence
 
@@ -30,4 +30,4 @@ To properly lock down a new repository, instruct your AI to execute these script
 
 On Day 1 of a new repository, open an AI Chat or Agent and provide the following prompt:
 
-> "I have just initialized this repository. Please run through the dynamic rule generators located in `uber-ai-workflow/dynamic-rules/`. Start with script `01`, scan my stack, and negotiate the non-negotiables with me. We will repeat this for scripts `02` and `03` until the `memory-bank/projectRules.md` is fully populated with our constraints."
+> "I have just initialized this repository. Please run through the dynamic skill generators located in `uber-ai-workflow/dynamic-skills/`. Start with script `01`, scan my stack, and negotiate the non-negotiables with me. We will repeat this for scripts `02` and `03` until the `.agent/skills/project-*` folder is fully populated with our constraints."

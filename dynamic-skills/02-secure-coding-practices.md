@@ -5,9 +5,9 @@ description: >
   codebase, and then generate strict, non-negotiable OWASP defenses tailored to the stack.
 ---
 
-# Dynamic Rule Generator: Secure Coding Practices (AppSec & OWASP)
+# Dynamic Skill Generator: Secure Coding Practices (AppSec & OWASP)
 
-**Purpose:** This script instructs the AI agent to analyze the current repository to determine its context (Frontend vs Backend), and then generate a hyper-specific set of security rules to prevent OWASP Top 10 vulnerabilities during day-to-day coding.
+**Purpose:** This script instructs the AI agent to analyze the current repository to determine its context (Frontend vs Backend), and then generate a hyper-specific set of security rules immortalized as a new AI skill to prevent OWASP Top 10 vulnerabilities during day-to-day coding.
 
 ## Phase 1: Stack & Environment Discovery 🔍
 Agent, before generating any rules, you must run the following checks on the target repository:
@@ -35,21 +35,22 @@ Once you have analyzed the repo, you MUST use the `notify_user` pattern to start
 
 *Proceed to Phase 3 ONLY after the user has responded, negotiated, and explicitly approved the final non-negotiables.*
 
-## Phase 3: Rule Generation ⚙️
-Using the agreed-upon constraints from Phase 2, generate a highly specific constraint document tailored to this repository.
+## Phase 3: Skill Generation ⚙️
+Using the agreed-upon constraints from Phase 2, generate a highly specific constraint document tailored to this repository. This document will become a new AI skill.
 
 **Critical Formatting Constraints:**
-*   Rules must be highly concise, bulleted, and no longer than necessary to prevent LLM context bloat. Avoid verbose explanations.
-*   You MUST include a meta-rule stating: *"These project-specific constraints supersede any generic universal skills."*
+*   You must generate a valid `SKILL.md` format, including YAML frontmatter with a `name: project-secure-coding` and a `description:` that starts with "Use when..."
+*   The skill must be highly concise, bulleted, and no longer than necessary to prevent LLM context bloat. Avoid verbose explanations.
+*   You MUST include an explicit meta-rule stating: *"This skill defers to `react-best-practices`, `composition-patterns`, and `backend-architect` as the ultimate sources of truth. This skill ONLY defines our specific project wiring and choices."*
 
-Format the generated constraint as a set of non-negotiable "Iron Laws" broken down by the core areas negotiated above.
+Format the generated skill as a set of non-negotiable "Iron Laws" broken down by the core areas negotiated above.
 
 ## Phase 4: Output and Delivery 💾
 You MUST adhere to the `AGENTS.md` state machine (PLAN -> BUILD -> DIFF -> QA -> APPROVAL -> APPLY).
 
-1. Generate a proposed `DIFF` containing the new rules.
-2. You MUST read the existing `memory-bank/projectRules.md` file first and strictly APPEND your new section titled **`### Secure Coding Practices`** to ensure you do not overwrite existing rules.
+1. Generate a proposed `DIFF` containing the new `SKILL.md` file layout.
+2. The destination path for this new skill must be `.agent/skills/project-secure-coding/SKILL.md` within the target repository.
 3. Present the `DIFF` to the user and ask for explicit `APPROVAL`.
-4. Once approved, write the generated, agreed-upon ruleset directly into the target project's Memory Bank at `memory-bank/projectRules.md`. 
-**Do NOT** write the project-specific rules back into the generic `uber-ai-workflow` skills repository. 
-Notify the user with a brief summary of the exact security constraints that were written.
+4. Once approved, write the generated, agreed-upon `SKILL.md` directly into the target project. 
+**Do NOT** write the project-specific skill back into the generic `uber-ai-workflow` repository. 
+Notify the user with a brief summary of the exact security constraints that were immortalized as a skill.

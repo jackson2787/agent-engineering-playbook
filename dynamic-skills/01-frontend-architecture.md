@@ -6,9 +6,9 @@ description: >
   management, and backend APIs.
 ---
 
-# Dynamic Rule Generator: Frontend Architecture
+# Dynamic Skill Generator: Frontend Architecture
 
-**Purpose:** This script instructs the AI agent to analyze the current repository, explicitly engage the user in a conversation about architectural non-negotiables, and then generate a hyper-specific set of data-access and state management rules.
+**Purpose:** This script instructs the AI agent to analyze the current repository, explicitly engage the user in a conversation about architectural non-negotiables, and then generate a hyper-specific frontend architecture SKILL tailored to this project's unique tech stack.
 
 ## Phase 1: Stack Discovery 🔍
 Agent, before generating any rules, you must run the following checks on the target repository:
@@ -33,25 +33,26 @@ Once you have analyzed the repo, you MUST use the `notify_user` pattern to start
 
 *Proceed to Phase 3 ONLY after the user has responded, negotiated, and explicitly approved the final non-negotiables.*
 
-## Phase 3: Rule Generation ⚙️
-Using the agreed-upon constraints from Phase 2, generate a highly specific constraint document tailored to this repository.
+## Phase 3: Skill Generation ⚙️
+Using the agreed-upon constraints from Phase 2, generate a highly specific constraint document tailored to this repository. This document will become a new AI skill.
 
 **Critical Formatting Constraints:**
-*   Rules must be highly concise, bulleted, and no longer than necessary to prevent LLM context bloat. Avoid verbose explanations.
-*   You MUST include a meta-rule stating: *"These project-specific constraints supersede any generic universal skills."*
+*   You must generate a valid `SKILL.md` format, including YAML frontmatter with a `name: project-frontend-architecture` and a `description:` that starts with "Use when..."
+*   The skill must be highly concise, bulleted, and no longer than necessary to prevent LLM context bloat. Avoid verbose explanations.
+*   You MUST include an explicit meta-rule stating: *"This skill defers to `react-best-practices`, `composition-patterns`, and `backend-architect` as the ultimate sources of truth. This skill ONLY defines our specific project wiring and choices."*
 
-The generated rules MUST define:
-1. **The Core Iron Law:** Explicitly forbid any unauthorized data access patterns (e.g., rogue `useEffect` fetches or direct DB calls from the UI).
-2. **Approved Fetching Pattern:** Document exactly how the frontend should call the API (including required Suspense/Error boundaries).
+The generated skill MUST define:
+1. **The Core Iron Law:** Explicitly forbid any unauthorized data access patterns for this specific project (e.g., rogue `useEffect` fetches or direct DB calls from the UI).
+2. **Approved Fetching Pattern:** Document exactly how the frontend should call the API within this project's chosen stack (including required Suspense/Error boundaries).
 3. **State Boundaries:** Explicitly define what goes in local `useState`, what goes in the Global store, and what stays in the fetch cache.
 4. **Red Flags (Rationalizations):** List the specific excuses the AI is forbidden to use for this stack (e.g., "I'll just query Supabase directly this one time to save time").
 
 ## Phase 4: Output and Delivery 💾
 You MUST adhere to the `AGENTS.md` state machine (PLAN -> BUILD -> DIFF -> QA -> APPROVAL -> APPLY).
 
-1. Generate a proposed `DIFF` containing the new rules.
-2. You MUST read the existing `memory-bank/projectRules.md` file first and strictly APPEND your new section titled **`### Frontend Architecture & Data Flow`** to ensure you do not overwrite existing rules.
+1. Generate a proposed `DIFF` containing the new `SKILL.md` file layout.
+2. The destination path for this new skill must be `.agent/skills/project-frontend-architecture/SKILL.md` within the target repository.
 3. Present the `DIFF` to the user and ask for explicit `APPROVAL`.
-4. Once approved, write the generated, agreed-upon ruleset directly into the target project's Memory Bank at `memory-bank/projectRules.md`. 
-**Do NOT** write the project-specific rules back into the generic `uber-ai-workflow` skills repository. 
-Notify the user with a brief summary of the exact constraints that were written.
+4. Once approved, write the generated, agreed-upon `SKILL.md` directly into the target project. 
+**Do NOT** write the project-specific skill back into the generic `uber-ai-workflow` repository. 
+Notify the user with a brief summary of the exact constraints that were immortalized as a skill.
