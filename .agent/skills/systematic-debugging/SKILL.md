@@ -167,11 +167,11 @@ You MUST complete each phase before proceeding to the next.
    - Ask for help
    - Research more
 
-### Phase 4: Implementation
+### Phase 4: TDD & Implementation
 
-**Fix the root cause, not the symptom:**
+**Fix the root cause, not the symptom. Explicitly trigger the TDD cycle:**
 
-1. **Create Failing Test Case**
+1. **Encode Bug as Failing Test**
    - Simplest possible reproduction
    - Automated test if possible
    - One-off test script if no framework

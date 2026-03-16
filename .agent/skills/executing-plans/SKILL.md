@@ -27,7 +27,7 @@ For each component outlined in the approved Plan:
 1. Work in a branch or temporary clone (never main).
 2. Create/modify files implementing minimal changes achieving the objective.
 3. Follow patterns established in `memory-bank/projectRules.md` or existing code.
-4. Add tests alongside your implementation.
+4. Write failing tests FIRST, then implement minimal changes per TDD protocol.
 5. Generate a unified diff of your changes.
 6. **DO NOT APPLY CHANGES TO MAIN.**
 
@@ -59,6 +59,7 @@ You must execute the following checks automatically:
 1. Run the test suite relevant to your changes.
 2. Run linters and code quality checks.
 3. Verify the build.
+4. Check for performance degradation (e.g., render waterfalls, unoptimized bundles) per architecture skills.
 
 If tests fail, fallback to BUILD and synthesize a minimal patch. 
 If tests fail 3 times in a row, trigger the `STALL DETECTED` warning and request user input.
@@ -79,7 +80,7 @@ Code changes complete. Ready for review.
 - `tests/test.ext` (+200, -0 lines)
 
 **Test Results**:
-✅ tests passing | ✅ Linter clean | ✅ Build successful
+✅ tests passing | ✅ Linter clean | ✅ Build successful | ✅ Performance verified
 
 **Review Gates**:
 - ✅ Tests pass

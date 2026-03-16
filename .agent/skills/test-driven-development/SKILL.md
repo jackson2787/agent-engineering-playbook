@@ -18,7 +18,7 @@ Write the test first. Watch it fail. Write minimal code to pass.
 **Always:**
 - New features
 - Bug fixes
-- Refactoring
+- Refactoring (See Refactoring Bypass Protocol)
 - Behavior changes
 
 **Exceptions (ask your human partner):**
@@ -35,6 +35,10 @@ NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
 ```
 
 Write code before the test? Delete it. Start over.
+
+### Refactoring Bypass Protocol
+For pure refactoring (where external behavior does not change), the Iron Law is: **NO REFACTORING WITHOUT EXISTING PASSING TESTS.**
+You must ensure tests pass before and after the refactor, bypassing the need to create a *new* failing test.
 
 **No exceptions:**
 - Don't keep it as "reference"

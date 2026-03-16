@@ -220,8 +220,8 @@ app.get('/api/resource/:id',
 When utilizing this skill within the `AGENTS.md` workflow lifecycle:
 
 - **PLAN State**: Define the macro architecture pattern, communication protocols, and data patterns before writing implementation code. Document decisions in `decisions.md`.
-- **BUILD State**: Comply strictly with defined schema specifications. Implement required security middleware and create proper SQL migrations including indexes, constraints, and RLS policies.
-- **QA State**: Validate performance metrics and integration tests against the scaling and reliability targets defined during planning.
+- **BUILD State**: Comply strictly with defined schema specifications. Implement required security middleware. **Database Migrations Protocol**: When changing schemas, you MUST create explicit SQL `UP` and `DOWN` migrations. You cannot simply "git rollback" a database.
+- **QA State**: Validate performance metrics and integration tests. Before declaring QA success, you MUST test the `DOWN` migration locally to ensure it safely tears down the applied database changes without leaving a dirty state.
 - **DOCS State**: Update `systemPatterns.md` and related context files with finalized architectural decisions.
 
 ## Red Flags - STOP and Redesign

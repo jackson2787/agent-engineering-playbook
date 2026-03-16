@@ -64,6 +64,7 @@ Before you write the plan document, you MUST:
 1. Search the codebase for similar functionality to satisfy the Reuse rule.
 2. Check `memory-bank/systemPatterns.md` for existing architecture patterns.
 3. Review existing codebase structure for clear extension points.
+4. Perform an explicit **Architectural Self-Audit**: validate your proposed plan structurally complies with `backend-architect`, `react-best-practices`, and `legal-compliance-checker` before asking for approval.
 
 ## Red Flags - STOP and Start Over
 
@@ -74,9 +75,11 @@ Before you write the plan document, you MUST:
 
 ## Execution Handoff
 
-After writing the plan to `memory-bank/tasks/plans/YYY-MM-DD-<feature>.md`:
+After writing the plan, you must perform a final **Self-Audit** against the core architectural and security skills. Ensure your plan structurally complies with all constraints.
+
+Then, write the plan to `memory-bank/tasks/plans/YYYY-MM-DD-<feature>.md`.
 
 **Stop and ask:**
-"Plan complete and saved to `memory-bank/tasks/plans/YYYY-MM-DD-<feature-name>.md`. Please review. Reply with 'approved' or 'looks good' to proceed to the BUILD state."
+"Plan complete, audited, and saved to `memory-bank/tasks/plans/YYYY-MM-DD-<feature-name>.md`. Please review. Reply with 'approved' or 'looks good' to proceed to the BUILD state."
 
 Do not move to the `BUILD` state or modify non-documentation code until the user provides explicit consent.
