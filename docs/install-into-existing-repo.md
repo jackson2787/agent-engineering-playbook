@@ -125,22 +125,34 @@ After copying the files, open the target repo and point the AI at:
 
 Do not tell the AI to load `dynamic-skills/` as if they were ordinary installed skills for day-to-day coding. Use them only during setup to create the project-specific skills above.
 
-Suggested bootstrap prompt:
+Initial repository bootstrap prompt:
 
 ```text
-This repository uses the AI workflow installed in AGENTS.md and .agent/skills/.
-Read AGENTS.md first, then load the relevant skills for this repo.
-Before choosing optional skill packs, ask me whether this repo is frontend web, frontend mobile, backend, or a full-stack/monorepo combination.
-Follow the PLAN -> BUILD -> DIFF -> QA -> APPROVAL -> APPLY -> DOCS workflow.
-If project-specific skills exist under `.agent/skills/project-*/`, use them alongside the universal skills: they define this repo's specific wiring and local constraints, while the universal skills remain the higher-level source of truth for architecture, quality, and execution discipline.
+Read AGENTS.md first. This repository uses AGENTS.md as the primary operating model and .agent/skills/ as the complementary capability layer.
+Before choosing optional domain skill packs, ask me whether this repo is frontend web, frontend mobile, backend, or a full-stack/monorepo combination.
+Examine the code base to create the memory bank according to the AGENTS 2.2 spec. Do not use readme files or other documentation as the primary source; examine the code and logic.
+After that, load the relevant universal skills from .agent/skills/ and follow the PLAN -> BUILD -> DIFF -> QA -> APPROVAL -> APPLY -> DOCS workflow.
+If project-specific skills exist under .agent/skills/project-*/, use them alongside the universal skills: they define this repo's specific wiring and local constraints, while the universal skills remain the higher-level source of truth for architecture, quality, and execution discipline.
 ```
 
-Suggested Day 1 dynamic-skills prompt:
+Optional Day 1 dynamic-skills prompt:
 
 ```text
-This repo has the workflow installed in AGENTS.md and .agent/skills/.
+This repo already uses AGENTS.md as the operating model. We are in setup mode.
 Please run through the dynamic skill generators one at a time, starting with 01.
+Treat the files in dynamic-skills/ as setup prompts, not runtime skills.
 Analyze this repository, discuss the proposed non-negotiables with me before writing anything, then generate the approved project-specific skill files under .agent/skills/project-*/.
+Those generated skills must complement the universal skills and defer to AGENTS.md and the higher-order skill packs.
+```
+
+Normal session commands after bootstrap:
+
+```text
+startup
+BUILD
+QA
+Document it. Update the memory bank.
+/compact
 ```
 
 ## Rules Of Thumb
