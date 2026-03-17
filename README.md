@@ -11,6 +11,17 @@ AI agents default to creating new files and mocking data to save time. This fram
 3. **No generic advice**: Every suggestion must include `file:line` citations.
 4. **No ignoring existing architecture**: The AI must load and understand the existing patterns before designing changes.
 
+## Install Into A Real Repo
+
+This repository is a template source, not the final installed layout.
+
+If you want to use it inside an actual project, follow [docs/install-into-existing-repo.md](./docs/install-into-existing-repo.md). That document defines:
+
+- what to copy into the target repo
+- where to place each skill pack
+- which directories are optional
+- how to point an AI at the installed workflow
+
 ## Directory Structure
 
 ### `AGENTS.md` (The Core System)

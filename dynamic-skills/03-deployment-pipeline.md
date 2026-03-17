@@ -17,7 +17,7 @@ Agent, before generating any rules, you must run the following checks on the tar
 4. **Environment Variables:** Look at `.env.example` or conventions in use (e.g., `NEXT_PUBLIC_` vs `EXPO_PUBLIC_`).
 
 ## Phase 2: Dynamic Negotiation (Chat with the User) 💬
-Once you have analyzed the repo, you MUST use the `notify_user` pattern to start a conversation. 
+Once you have analyzed the repo, you MUST pause and start a direct conversation with the human user.
 
 **Present your analysis (e.g., "I see we are deploying a Next.js web app to Vercel and an Expo mobile app via EAS...") and propose this baseline set of Ironclad DevOps Rules to the user:**
 

@@ -15,7 +15,7 @@ Agent, before generating any rules, you must run the following checks on the tar
 2. **Auth Context:** Check for `@supabase/supabase-js`, next-auth, Expo secure store, or HTTP-only cookie implementations.
 
 ## Phase 2: Dynamic Negotiation (Chat with the User) 💬
-Once you have analyzed the repo, you MUST use the `notify_user` pattern to start a conversation. 
+Once you have analyzed the repo, you MUST pause and start a direct conversation with the human user.
 
 **Present your analysis (e.g., "I see this is a React Native frontend repo...") and propose this baseline set of Ironclad Security Commandments to the user:**
 

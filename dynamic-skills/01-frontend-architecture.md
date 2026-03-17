@@ -18,7 +18,7 @@ Agent, before generating any rules, you must run the following checks on the tar
 4. **Database Client:** Check for `@supabase/supabase-js`.
 
 ## Phase 2: Dynamic Negotiation (Chat with the User) 💬
-Once you have analyzed the repo, you MUST use the `notify_user` pattern to start a conversation. Do not generate the final rules immediately.
+Once you have analyzed the repo, you MUST pause and start a direct conversation with the human user. Do not generate the final rules immediately.
 
 **Present your analysis and propose this baseline set of non-negotiables to the user (tailor these based on what you found in Phase 1):**
 
