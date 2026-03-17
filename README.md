@@ -22,26 +22,43 @@ This is the heart of the orchestration framework. `AGENTS.md` enforces a strict 
 - **APPLY:** Apply the diff to the sandbox branch.
 - **DOCS:** Update the Memory Bank and task summaries to maintain high-fidelity context.
 
-### `.agent/skills/` (The Universal Skills)
-A library of highly specialized markdown instructions (`SKILL.md`) that the AI can load contextually based on the task at hand. 
+### 🧠 The Core Skills Library
+
+The framework uses specialized markdown instructions (`SKILL.md`) that the AI loads contextually based on the task at hand. These are designed to be modular so you only plug in what you need for a given repository.
+
+#### `skills/` (Universal Skills)
+Always included in every project. Contains the state machine enforcers and meta-skills.
 
 | Skill Name | Description |
 |---|---|
 | **test-driven-development** | Enforces strict Red-Green-Refactor. The Iron Law: "No production code without a failing test first." |
 | **systematic-debugging** | A 4-phase structured approach to root cause analysis, preventing the AI from guessing or writing "quick patches". |
-| **backend-architect** | Mandates security-first design (RLS, rate limiting), horizontal scalability, and explicit DB migration protocols. |
 | **writing-plans** | Enforces the `PLAN` state. Instructs the AI to focus on reuse over creation and generate a structural diff for approval. |
 | **executing-plans** | Enforces the `BUILD` state. Instructs the AI to write failing tests first, implement minimal code, and generate a unified diff without deploying. |
+| **verification-before-completion** | Enforces the `QA` state. Explicitly prevents the AI from claiming success before verifying output on the terminal. |
 | **writing-docs** | Enforces the `DOCS` state. Governs how the AI updates the `memory-bank` to ensure context fidelity for future tasks. |
-| **accessible-ui** | Enforces WCAG compliance, semantic HTML, and proper React Native/Next.js accessible components. |
-| **react-best-practices** | React and Next.js performance optimization guidelines from Vercel Engineering (e.g., Server Components vs Client Components). |
-| **composition-patterns** | React composition patterns that scale, useful for refactoring components and building flexible APIs. |
-| **react-native-skills** | React Native and Expo best practices for building performant mobile apps (e.g., list performance, animations). |
-| **supabase-postgres-best-practices** | Postgres performance optimization and best practices from Supabase (indexing, RLS, queries). |
-| **verification-before-completion** | QA State protocol explicitly preventing the AI from claiming success before verifying output on the terminal. |
 | **legal-compliance-checker** | Mandates security and privacy checks for GDPR, CCPA, and data handling requirements. |
 | **brainstorming-features** | Unstructured conceptual mode for helping humans brainstorm ideas before moving into PLAN mode. |
 | **writing-skills** | Meta-skill used when the AI is asked to edit, create, or test other skills within the framework. |
+
+#### `backend-skills/`
+Drop these into backend repositories (APIs, Databases, Cloud Functions).
+
+| Skill Name | Description |
+|---|---|
+| **backend-architect** | Mandates security-first design (RLS, rate limiting), horizontal scalability, and DB migration protocols. |
+| **supabase-postgres-best-practices** | Postgres performance optimization and best practices from Supabase (indexing, RLS, queries). |
+
+#### `frontend-web-skills/` & `frontend-mobile-skills/`
+Drop these into Next.js/React web projects or React Native/Expo mobile projects.
+
+| Skill Name | Description |
+|---|---|
+| **accessible-ui** | *(Shared)* Enforces WCAG compliance, semantic HTML, and proper React Native/Next.js accessible components. |
+| **composition-patterns** | *(Shared)* React composition patterns that scale, useful for refactoring components and building flexible APIs. |
+| **react-best-practices** | *(Web)* React and Next.js performance optimization guidelines from Vercel Engineering. |
+| **react-native-skills** | *(Mobile)* React Native and Expo best practices for building performant mobile apps (e.g., list performance, animations). |
+| **expo-native-data-fetching** | *(Mobile)* Best practices for handling offline state, query caching, and secure token storage on mobile devices. |
 
 ### `dynamic-skills/` (Project Data & Wiring)
 These are generator scripts intended to be run once at the start of a new project. They query the user about their specific tech stack (e.g., frontend frameworks, deployment targets, security models) and dynamically generate project-specific `SKILL.md` files.
@@ -70,7 +87,7 @@ This workflow is an implementation of the [AGENT-ZERO](https://github.com/msitar
 
 ### Quick Start & Boot Sequence
 A field-tested routine for flawless execution:
-1. Ensure your AI agent reads the `.agent/skills/` directory and `AGENTS.md`.
+1. Ensure your AI agent reads the applicable skills directories (e.g., `skills/`, `backend-skills/`) and `AGENTS.md`.
 2. Clear your session memory to prevent context pollution (e.g., `/compact` or `/clear`).
 3. On every boot, provide a specific task and ensure the agent starts in **PLAN** mode.
 4. Type: `BUILD` to implement in a sandbox branch.
