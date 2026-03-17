@@ -4,9 +4,9 @@ Use this guide after the base repository bootstrap in
 `docs/install-into-existing-repo.md` is already complete.
 
 Optional skills are manually invoked, task-specific add-ons for Codex-style
-clients. They are intentionally separate from the always-on workflow packs in
-`.agent/skills/` so they do not become part of the default execution surface
-for normal coding work.
+clients. Install them under `.agent/skills/` for compatibility with the main
+skill loader, but keep them manually invoked so they do not become part of the
+default execution surface for normal coding work.
 
 ## What Optional Skills Are For
 
@@ -24,8 +24,8 @@ Examples in this repo:
 1. Install the base operating model and universal/domain skill packs first by
    following `docs/install-into-existing-repo.md`.
 2. Choose only the optional skill packages the target repo actually needs.
-3. Copy the installable skill payload into the target repo's manual skill
-   directory, typically `skills/<skill-name>/`.
+3. Copy the installable skill payload into the target repo's skill directory,
+   typically `.agent/skills/<skill-name>/`.
 4. Copy any supporting scripts, templates, or references required by that
    package.
 5. Keep optional skills manually invoked. Do not fold them into the default
@@ -38,16 +38,15 @@ target-repo/
 ├── AGENTS.md
 ├── .agent/
 │   └── skills/
-│       └── ...
-└── skills/
-    ├── best-practices-audit/
-    │   ├── SKILL.md
-    │   ├── agents/
-    │   ├── assets/
-    │   └── references/
-    └── sync-api/
-        ├── SKILL.md
-        └── agents/
+│       ├── ...
+│       ├── best-practices-audit/
+│       │   ├── SKILL.md
+│       │   ├── agents/
+│       │   ├── assets/
+│       │   └── references/
+│       └── sync-api/
+│           ├── SKILL.md
+│           └── agents/
 ```
 
 ## Package Rules
@@ -72,7 +71,7 @@ Follow the package-local guide at
 
 Current install payload:
 
-- `optional-skills/sync-api/skills/sync-api/` -> `skills/sync-api/`
+- `optional-skills/sync-api/skills/sync-api/` -> `.agent/skills/sync-api/`
 - `optional-skills/sync-api/resources/scripts/slice-openapi.js` ->
   `scripts/slice-openapi.js`
 - `optional-skills/sync-api/resources/scripts/generate-api.js` ->
@@ -91,14 +90,14 @@ or backend repositories.
 This package does not currently ship with a package-local `installation.md`.
 For now, install it by copying the package contents into the target repo as:
 
-- `optional-skills/best-practices-audit/` -> `skills/best-practices-audit/`
+- `optional-skills/best-practices-audit/` -> `.agent/skills/best-practices-audit/`
 
 Preserve these bundled paths:
 
-- `skills/best-practices-audit/SKILL.md`
-- `skills/best-practices-audit/agents/openai.yaml`
-- `skills/best-practices-audit/assets/audit-report-template.md`
-- `skills/best-practices-audit/references/branches.md`
+- `.agent/skills/best-practices-audit/SKILL.md`
+- `.agent/skills/best-practices-audit/agents/openai.yaml`
+- `.agent/skills/best-practices-audit/assets/audit-report-template.md`
+- `.agent/skills/best-practices-audit/references/branches.md`
 
 The installed skill writes audit reports to:
 

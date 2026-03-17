@@ -21,7 +21,7 @@ not invoke it for ordinary frontend feature work.
 
 - Operates in the client repository only
 - Assumes the repo already has the required scripts, config, and local
-  `skills/sync-api/` installation in place
+  `.agent/skills/sync-api/` installation in place
 - Does not authorize backend, schema, or OpenAPI spec changes
 - If the API contract is insufficient, halt and report the gap
 
@@ -185,7 +185,7 @@ installation guide to install:
 - `scripts/slice-openapi.js`
 - `scripts/generate-api.js`
 - `orval.config.ts`
-- `skills/sync-api/`
+- `.agent/skills/sync-api/`
 
 ## Reporting Contract Gaps (Halt, Don't Patch)
 

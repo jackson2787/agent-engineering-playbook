@@ -16,10 +16,10 @@ Copy these package files into the target repository:
 | `optional-skills/sync-api/resources/scripts/slice-openapi.js` | `scripts/slice-openapi.js` |
 | `optional-skills/sync-api/resources/scripts/generate-api.js` | `scripts/generate-api.js` |
 | `optional-skills/sync-api/resources/assets/orval.config.template.ts` | `orval.config.ts` |
-| `optional-skills/sync-api/skills/sync-api/` | `skills/sync-api/` |
+| `optional-skills/sync-api/skills/sync-api/` | `.agent/skills/sync-api/` |
 
-The installed `skills/sync-api/` directory is the small operational skill that
-can be manually invoked later inside the target repo.
+The installed `.agent/skills/sync-api/` directory is the small operational
+skill that can be manually invoked later inside the target repo.
 
 ## Package Scripts
 
@@ -87,8 +87,8 @@ to match the target repo's structure.
 
 ## Recommended Usage
 
-1. Follow this guide to copy the scripts, template, and `skills/sync-api/`
+1. Follow this guide to copy the scripts, template, and `.agent/skills/sync-api/`
    directory into the target repo.
 2. Verify the copied files, `orval.config.ts`, and `package.json` entries.
-3. Invoke the installed `skills/sync-api/` skill only when you need to run an
-   API sync or investigate contract drift.
+3. Invoke the installed `.agent/skills/sync-api/` skill only when you need to
+   run an API sync or investigate contract drift.

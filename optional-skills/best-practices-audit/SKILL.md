@@ -105,8 +105,8 @@ After writing the audit report:
 1. Tell the user where the document was written.
 2. Summarize the top findings briefly.
 3. Suggest using the audit doc as input to:
-   - `skills/brainstorming-features/`
-   - `skills/writing-plans/`
+   - `.agent/skills/brainstorming-features/`
+   - `.agent/skills/writing-plans/`
 
 Do not begin implementation unless the user explicitly asks for a follow-up
 planning or build step.
