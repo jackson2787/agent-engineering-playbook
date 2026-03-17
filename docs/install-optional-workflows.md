@@ -150,6 +150,24 @@ and then follow that README for:
 
 ---
 
+## Example With `best-practices-audit`
+
+If the user selects `best-practices-audit`, the AI should read:
+
+```text
+optional-workflows/best-practices-audit/README.md
+```
+
+and then follow that README for:
+
+- the workflow file copy target
+- the optional template resource
+- the supported branches: `nextjs`, `expo`, and `backend`
+- the audit output location under `docs/audits/`
+- the handoff pattern into brainstorming and planning
+
+---
+
 ## Notes
 
 - Optional workflows are not core skill packs.

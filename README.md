@@ -216,9 +216,13 @@ Each package includes:
 - a `workflow/` directory containing the file copied into `.agent/workflows/`
 - a `resources/` directory containing supporting project files
 
-The first package is `optional-workflows/sync-api/`, which installs a strict
-OpenAPI sync workflow for TypeScript frontend projects using Orval and related
-support scripts.
+Current packages:
+
+- `optional-workflows/sync-api/` installs a strict OpenAPI sync workflow for
+  TypeScript frontend projects using Orval and related support scripts.
+- `optional-workflows/best-practices-audit/` installs a reusable audit workflow
+  for `Next.js`, `Expo`, or `backend` repositories and writes the findings to
+  `docs/audits/` for later planning.
 
 ---
 
