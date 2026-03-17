@@ -48,8 +48,9 @@ Copy these files and directories into the target repository:
 - `AGENTS.md` -> copy to the target repo root as `AGENTS.md`
 - `skills/` -> copy to the target repo as `.agent/skills/`
 - `backend-skills/` -> copy only if the target repo has backend code
-- `frontend-web-skills/` -> copy only if the target repo has web frontend code
-- `frontend-mobile-skills/` -> copy only if the target repo has mobile frontend code
+- `frontend-skills/frontend-shared-skills/` -> copy if the target repo has any frontend code
+- `frontend-skills/frontend-web-skills/` -> copy only if the target repo has web frontend code
+- `frontend-skills/frontend-mobile-skills/` -> copy only if the target repo has mobile frontend code
 - `dynamic-skills/` -> optional; copy only if you want prompt-generators that help the AI create project-specific skills on Day 1
 
 Recommended target layout:
@@ -98,10 +99,10 @@ For most repos, the minimum useful install is:
 
 Examples:
 
-- Frontend web: add `frontend-web-skills/`
-- Frontend mobile: add `frontend-mobile-skills/`
+- Frontend web: add `frontend-skills/frontend-shared-skills/` and `frontend-skills/frontend-web-skills/`
+- Frontend mobile: add `frontend-skills/frontend-shared-skills/` and `frontend-skills/frontend-mobile-skills/`
 - Backend: add `backend-skills/`
-- Full-stack monorepo: combine the relevant packs
+- Full-stack monorepo: combine `backend-skills/` with the relevant frontend packs
 
 ## Day 1 Optional Step: Generate Project-Specific Skills
 

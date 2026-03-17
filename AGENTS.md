@@ -215,7 +215,7 @@ PLAN [approve] → BUILD → DIFF → QA [pass] → APPROVAL [approve] → APPLY
 Before beginning or transitioning states, you should load the relevant skill file:
 - **Idea Generation**: `.agent/skills/brainstorming-features/SKILL.md`
 - **PLAN State**: `.agent/skills/writing-plans/SKILL.md`
-- **Frontend API Planning**: `frontend-web-skills/api-feature-request/SKILL.md` (Mandatory gate during PLAN state for any frontend API integration)
+- **Frontend API Planning**: `.agent/skills/api-feature-request/SKILL.md` (Mandatory gate during PLAN state for any frontend API integration)
 - **BUILD State**: `.agent/skills/executing-plans/SKILL.md`
 - **BUILD (Coding)**: `.agent/skills/test-driven-development/SKILL.md`
 - **QA (Debugging)**: `.agent/skills/systematic-debugging/SKILL.md`

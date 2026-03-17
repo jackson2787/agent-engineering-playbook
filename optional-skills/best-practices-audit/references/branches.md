@@ -4,13 +4,13 @@
 
 Load and use:
 
-- `frontend-web-skills/react-best-practices/`
-- `frontend-web-skills/accessible-ui/`
-- `frontend-web-skills/composition-patterns/`
+- `react-best-practices/`
+- `accessible-ui/`
+- `composition-patterns/`
 
 Optionally include:
 
-- `frontend-web-skills/api-feature-request/` if API integration quality,
+- `api-feature-request/` if API integration quality,
   request boundaries, or frontend-backend contract shape is materially relevant
 
 Audit for:
@@ -25,14 +25,14 @@ Audit for:
 
 Load and use:
 
-- `frontend-mobile-skills/react-native-skills/`
-- `frontend-mobile-skills/expo-native-data-fetching/`
-- `frontend-mobile-skills/accessible-ui/`
-- `frontend-mobile-skills/composition-patterns/`
+- `react-native-skills/`
+- `expo-native-data-fetching/`
+- `accessible-ui/`
+- `composition-patterns/`
 
 Optionally include:
 
-- `frontend-mobile-skills/api-feature-request/` if API integration quality is
+- `api-feature-request/` if API integration quality is
   in scope
 
 Audit for:
@@ -48,11 +48,11 @@ Audit for:
 
 Load and use:
 
-- `backend-skills/backend-architect/`
+- `backend-architect/`
 
 Also load:
 
-- `backend-skills/supabase-postgres-best-practices/` when the repo uses
+- `supabase-postgres-best-practices/` when the repo uses
   Postgres or Supabase, or when SQL/schema quality is in scope
 
 Audit for:

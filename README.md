@@ -181,13 +181,16 @@ They cover:
 
 Reusable backend-oriented skill packs for APIs, databases, security posture, and backend architecture.
 
-### `frontend-web-skills/`
+### `frontend-skills/`
 
-Reusable web frontend skill packs for React and Next.js style work.
+Reusable frontend skill source packs organized to reduce drift across
+platforms.
 
-### `frontend-mobile-skills/`
+Subgroups:
 
-Reusable mobile frontend skill packs for Expo and React Native style work.
+- `frontend-skills/frontend-shared-skills/` for skills shared across web and mobile
+- `frontend-skills/frontend-web-skills/` for React and Next.js specific skills
+- `frontend-skills/frontend-mobile-skills/` for Expo and React Native specific skills
 
 ### `dynamic-skills/`
 
