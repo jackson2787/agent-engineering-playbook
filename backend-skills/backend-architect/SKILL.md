@@ -1,6 +1,6 @@
 ---
 name: backend-architect
-description: Use when designing backend architectures, database schemas, APIs, infrastructure decisions, or data/ETL pipelines that require security, scalability, and performance considerations.
+description: Use when making backend decisions that are expensive to reverse, including service boundaries, API shape, database schema design, auth and data access patterns, infrastructure topology, and scaling or reliability strategy.
 ---
 
 # Backend Architect

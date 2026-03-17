@@ -1,6 +1,6 @@
 ---
 name: API Feature Request
-description: A specialized skill to evaluate API readiness during the frontend planning stage and generate standardized API feature request documents when necessary.
+description: Use when planning a frontend feature that depends on existing or proposed API surface, especially if you need to decide whether the current API is sufficient, identify over-fetching or under-fetching, or draft a backend feature request to keep the client thin.
 ---
 
 # API Feature Request Skill

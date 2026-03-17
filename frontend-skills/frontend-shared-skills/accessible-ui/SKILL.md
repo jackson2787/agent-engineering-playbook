@@ -1,6 +1,6 @@
 ---
 name: accessible-ui
-description: Use when creating, editing, reviewing, or refactoring ANY UI component, screen, page, form, modal, dialog, popover, tooltip, navigation element, or interactive widget in React Native (Expo + Tamagui) or Web (Next.js + Shadcn UI). Trigger whenever adding images, icons, color tokens, typography scales, or theme configurations. Applies to any task touching JSX or TSX that renders to a screen.
+description: Use when creating or changing user-facing UI that affects accessibility, interaction semantics, focus management, forms, color contrast, responsive typography, or assistive-technology behavior on web or React Native.
 ---
 
 # Accessible UI — Non-Negotiable Component Rules
