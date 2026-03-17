@@ -26,18 +26,17 @@ There is also an optional third layer:
 
 There is also an optional fourth layer:
 
-4. **The optional workflow layer**: installable workflow packages
-   The files in `optional-workflows/` are small, self-contained packages that add
-   human-invoked IDE workflows plus any supporting project resources those
-   workflows need. These are installed into a target repo by following the
-   package-local `README.md`.
+4. **The optional skill layer**: installable manual skill packages
+   The files in `optional-skills/` are small, self-contained packages for
+   Codex-style clients that add human-invoked, task-specific skills plus any
+   supporting project resources those skills need.
 
 The right way to think about this repo is:
 
 - `AGENTS.md` is the operating system
 - the reusable skill packs are the extensions that sharpen and specialize it
 - generated project-specific skills are local wiring and non-negotiables for one concrete repo
-- optional workflows are installable add-ons for repo-specific IDE workflows
+- optional skills are installable add-ons for focused, manually invoked repo workflows
 
 ---
 
@@ -102,7 +101,7 @@ The short version:
 3. Ask the user whether the target repo is frontend web, frontend mobile, backend, or a full-stack/monorepo combination.
 4. Copy only the relevant domain skill packs.
 5. Optionally use `dynamic-skills/` as setup prompts to generate `.agent/skills/project-*/SKILL.md` files in the target repo.
-6. Optionally install workflow packages from `optional-workflows/` by following [docs/install-optional-workflows.md](./docs/install-optional-workflows.md).
+6. Optionally install manual skill packages from `optional-skills/` by following [docs/install-optional-skills.md](./docs/install-optional-skills.md).
 
 Recommended prompts for a target repo:
 
@@ -208,23 +207,23 @@ Examples include prompts for:
 - secure coding practices
 - deployment pipeline conventions
 
-### `optional-workflows/`
+### `optional-skills/`
 
-These are installable workflow packages for human-invoked IDE workflows that sit
-outside the core skill-pack model.
+These are installable manual skill packages for Codex-style clients that sit
+outside the core always-on skill-pack model.
 
-Each package includes:
+Each package may include:
 
-- a package `README.md` that acts as the install contract
-- a `workflow/` directory containing the file copied into `.agent/workflows/`
-- a `resources/` directory containing supporting project files
+- a package `installation.md` for human-facing setup guidance
+- an installable skill payload containing `SKILL.md` plus `agents/openai.yaml`
+- a `resources/`, `assets/`, or `references/` directory with supporting files
 
 Current packages:
 
-- `optional-workflows/sync-api/` installs a strict OpenAPI sync workflow for
+- `optional-skills/sync-api/` installs a strict OpenAPI sync skill for
   TypeScript frontend projects using Orval and related support scripts.
-- `optional-workflows/best-practices-audit/` installs a reusable audit workflow
-  for `Next.js`, `Expo`, or `backend` repositories and writes the findings to
+- `optional-skills/best-practices-audit/` installs a reusable audit skill for
+  `Next.js`, `Expo`, or `backend` repositories and writes the findings to
   `docs/audits/` for later planning.
 
 ---
@@ -309,4 +308,5 @@ This project is not presented as an official implementation of, fork of, or endo
 
 - Canonical operating guide in this repo: [AGENTS.md](./AGENTS.md)
 - Detailed install guide: [docs/install-into-existing-repo.md](./docs/install-into-existing-repo.md)
+- Optional skill install guide: [docs/install-optional-skills.md](./docs/install-optional-skills.md)
 - Upstream operating-model reference: [AGENT-ZERO](https://github.com/msitarzewski/AGENT-ZERO)
