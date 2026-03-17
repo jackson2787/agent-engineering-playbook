@@ -6,32 +6,46 @@ metadata:
   version: "0.1.0"
 ---
 
-# Best Practices Audit
+# Best Practices Audit Workflow
 
 Use this skill only for explicit audit requests. Do not invoke it for ordinary
 feature work, code review, or implementation tasks.
 
+Run this skill in the target repository.
+
+Recommended usage:
+
+- Start in a fresh chat so the context stays focused on the audit.
+- If the target repo uses `AGENTS.md`, operate within that contract unless the
+  user explicitly chooses to work outside it.
+
 ## Purpose
 
-- Audit an existing repository against the installed skill packs
-- Help bootstrap older repos that have just adopted this playbook
-- Help detect drift in repos that were previously aligned
-- Produce a reusable audit document for later planning and implementation
+- Audit an existing repository against the installed skill packs.
+- Help bootstrap older repos that have just adopted this playbook.
+- Help detect drift in repos that were previously aligned.
+- Produce a reusable audit document for later planning and implementation.
 
 This skill is read-only by default. The output is an audit report, not a code
 change set.
 
 ## First Step
 
-Establish:
+Ask the user which audit branch to run:
 
 - branch: `nextjs`, `expo`, or `backend`
-- audit mode: `baseline` or `drift`
 
 If the repository strongly suggests a branch, you may infer it and ask for
-confirmation. If audit mode is omitted, default to `baseline`.
+confirmation.
 
-## Core Contract
+Also ask whether the user wants:
+
+- a baseline audit for initial adoption
+- a drift audit for periodic re-checking
+
+If the user does not specify, default to a baseline audit.
+
+## Core Audit Contract
 
 You must:
 
@@ -45,14 +59,41 @@ You must:
 7. End by suggesting the audit document be used as input to a separate planning
    or brainstorming pass.
 
-## Branch-Specific Guidance
+## Branch Rules
 
 Load [references/branches.md](references/branches.md) and use only the section
 for the selected branch.
 
+That file contains the canonical skill-pack and audit-area rules for:
+
+- `nextjs`
+- `expo`
+- `backend`
+
+## Output File
+
+Write the audit report to:
+
+```text
+docs/audits/YYYY-MM-DD-<branch>-best-practices-audit.md
+```
+
+Create `docs/audits/` if needed.
+
 ## Output Structure
 
 Use the structure in [assets/audit-report-template.md](assets/audit-report-template.md).
+
+The report should include:
+
+- scope
+- skill packs used
+- summary assessment
+- findings grouped by severity
+- drift from playbook patterns
+- quick wins
+- strategic follow-up
+- suggested next prompt
 
 If there are no major findings, say so explicitly and still note residual risks
 or areas not deeply verified.
