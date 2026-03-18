@@ -3,6 +3,9 @@
 Use this guide after the base repository bootstrap in
 `docs/install-into-existing-repo.md` is already complete.
 
+That base bootstrap installs `agent/AGENTS.md` from this template repo into
+the target repo root as `AGENTS.md`.
+
 Optional skills are manually invoked, task-specific add-ons for Codex-style
 clients. Install them under `.agent/skills/` for compatibility with the main
 skill loader, but keep them manually invoked so they do not become part of the
@@ -21,7 +24,8 @@ Examples in this repo:
 
 ## Install Order
 
-1. Install the base operating model and universal/domain skill packs first by
+1. Install the base operating model from `agent/AGENTS.md` plus the
+   universal/domain skill packs first by
    following `docs/install-into-existing-repo.md`.
 2. Choose only the optional skill packages the target repo actually needs.
 3. Copy the installable skill payload into the target repo's skill directory,
@@ -110,7 +114,7 @@ docs/audits/YYYY-MM-DD-<branch>-best-practices-audit.md
 - Install optional skills only when the repo needs that exact workflow.
 - Invoke them explicitly for focused tasks.
 - Do not treat them as ordinary bootstrap inputs for every session.
-- Keep `AGENTS.md` plus `.agent/skills/` as the main operating model.
+- Keep the installed `AGENTS.md` plus `.agent/skills/` as the main operating model.
 
 ## References
 

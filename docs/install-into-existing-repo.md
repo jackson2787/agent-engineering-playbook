@@ -6,8 +6,8 @@ Use this document as the single install entrypoint when you want an AI to set up
 
 You are bootstrapping two interconnected systems into the target repository:
 
-1. **The operating model**: `AGENTS.md`
-   This is the primary source of truth for how the agent should work in the target repo.
+1. **The operating model**: `agent/AGENTS.md`
+   This is the source asset in this template repo. Copy it into the target repo root as `AGENTS.md`; that installed file becomes the primary source of truth for how the agent should work in the target repo.
 
 2. **The capability layer**: the reusable skill packs
    These complement `AGENTS.md` with domain-specific guidance for execution, planning, verification, frontend work, mobile work, backend work, and documentation.
@@ -39,13 +39,14 @@ This repository is a template and source library.
 - The files here are the canonical source assets.
 - You do not run day-to-day work inside this template repo.
 - You copy the relevant files into the target repository, then point your AI at the copied files inside that target repo.
+- The root `AGENTS.md` in this template repo is intentionally lightweight and exists only to prevent confusion; the deployable operating model source is `agent/AGENTS.md`.
 - The `dynamic-skills/` directory is different from the installed skill packs: those files are prompt-generators used to create project-specific skills, not reusable skills that the AI should load for normal day-to-day execution.
 
 ## Copy Targets
 
 Copy these files and directories into the target repository:
 
-- `AGENTS.md` -> copy to the target repo root as `AGENTS.md`
+- `agent/AGENTS.md` -> copy to the target repo root as `AGENTS.md`
 - `skills/` -> copy to the target repo as `.agent/skills/`
 - `backend-skills/` -> copy only if the target repo has backend code
 - `frontend-skills/frontend-shared-skills/` -> copy if the target repo has any frontend code
@@ -93,7 +94,7 @@ Do not force the AI to infer this when the user can answer it directly in one li
 
 For most repos, the minimum useful install is:
 
-1. Copy `AGENTS.md` to the target repo root.
+1. Copy `agent/AGENTS.md` to the target repo root as `AGENTS.md`.
 2. Copy `skills/` to `.agent/skills/` in the target repo.
 3. Copy only the domain packs the target repo actually needs.
 
@@ -120,7 +121,7 @@ These generated skills belong in the target repo, not in this template repo.
 
 After copying the files, open the target repo and point the AI at:
 
-- `AGENTS.md`
+- `AGENTS.md` in the target repo root
 - `.agent/skills/`
 - Any generated `.agent/skills/project-*/SKILL.md` files
 

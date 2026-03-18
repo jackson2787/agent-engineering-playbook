@@ -3,7 +3,7 @@
 This repository is an opinionated synthesis of proven agent-workflow, frontend, mobile, and backend engineering practices.
 Its value is not in claiming wholly novel ideas, but in combining strong prior art into a practical, disciplined system for AI-assisted software delivery.
 
-- Version: aligned with `AGENTS.md` 2.2 (2025-03-04)
+- Version: aligned with `agent/AGENTS.md` 2.2 (2025-03-04)
 - Compatibility: Claude, Cursor, Copilot, Cline, Aider, Codex, and other `AGENTS.md`-compatible tools
 - Status: template repo for bootstrapping an AGENT-ZERO-style operating model plus complementary skill packs
 
@@ -13,8 +13,8 @@ Its value is not in claiming wholly novel ideas, but in combining strong prior a
 
 This repo bootstraps **two interconnected systems** into a real project repository:
 
-1. **The operating model**: `AGENTS.md`
-   This is the primary source of truth for how the agent should work. It defines the state machine, approval gates, Memory Bank behavior, task contracts, compaction protocol, and documentation discipline.
+1. **The operating model source**: `agent/AGENTS.md`
+   This is the deployable operating-model asset. When installed into a real project repo, it becomes that repo's root `AGENTS.md` and defines the state machine, approval gates, Memory Bank behavior, task contracts, compaction protocol, and documentation discipline.
 
 2. **The capability layer**: the skill packs
    These complement `AGENTS.md` with reusable, domain-specific guidance for planning, debugging, frontend work, mobile work, backend work, verification, and documentation.
@@ -33,7 +33,7 @@ There is also an optional fourth layer:
 
 The right way to think about this repo is:
 
-- `AGENTS.md` is the operating system
+- `agent/AGENTS.md` is the operating system source asset
 - the reusable skill packs are the extensions that sharpen and specialize it
 - generated project-specific skills are local wiring and non-negotiables for one concrete repo
 - optional skills are installable add-ons for focused, manually invoked repo workflows
@@ -49,13 +49,14 @@ The upstream conceptual source of truth for the operating model is **AGENT-ZERO*
 
 In this repository:
 
-- `AGENTS.md` is the canonical operating guide the agent should follow inside a target repo
+- `agent/AGENTS.md` is the canonical operating guide source for target repos
+- the root `AGENTS.md` is only a lightweight template-repo guardrail
 - the skill packs are intentionally subordinate to that operating guide
 - the generated project-specific skills are subordinate to both the operating guide and the universal skill packs
 
 If you need an authority order, use this:
 
-1. `AGENTS.md`
+1. `AGENTS.md` in the target repo, sourced from `agent/AGENTS.md`
 2. Universal skill packs in `.agent/skills/`
 3. Generated project-specific skills in `.agent/skills/project-*/`
 
@@ -96,7 +97,7 @@ To install it into a target repository, use [docs/install-into-existing-repo.md]
 
 The short version:
 
-1. Copy `AGENTS.md` into the target repo root.
+1. Copy `agent/AGENTS.md` into the target repo root as `AGENTS.md`.
 2. Copy `skills/` into `.agent/skills/` in the target repo.
 3. Ask the user whether the target repo is frontend web, frontend mobile, backend, or a full-stack/monorepo combination.
 4. Copy only the relevant domain skill packs.
@@ -107,7 +108,7 @@ Recommended prompts for a target repo:
 
 ### Initial Repository Bootstrap
 
-Use this once, after installing `AGENTS.md` and the skill packs into the target repo:
+Use this once, after installing `agent/AGENTS.md` as `AGENTS.md` and the skill packs into the target repo:
 
 ```text
 Read AGENTS.md first. This repository uses AGENTS.md as the primary operating model and .agent/skills/ as the complementary capability layer.
@@ -145,9 +146,10 @@ Document it. Update the memory bank.
 
 ## Repo Contents
 
-### `AGENTS.md`
+### `agent/AGENTS.md`
 
-This is the heart of the system. It defines:
+This is the heart of the system. It is the deployable operating-model asset
+that gets copied into the target repo root as `AGENTS.md`. It defines:
 
 - the compliance banner
 - startup behavior
@@ -158,11 +160,21 @@ This is the heart of the system. It defines:
 - documentation rules
 - compaction recovery behavior
 
-If someone asks "how should the agent operate?", the answer should begin with `AGENTS.md`.
+If someone asks "how should the agent operate in the installed repo?", the
+answer should begin with `AGENTS.md` in that target repo, sourced from
+`agent/AGENTS.md`.
+
+### `AGENTS.md`
+
+This root file is intentionally lightweight. Its only job is to stop
+`AGENTS.md`-aware tools from confusing this template repo with an installed
+target repo.
 
 ### `skills/`
 
-These are the universal runtime skills. They are intended to live in `.agent/skills/` inside the target repo and complement `AGENTS.md` during normal work.
+These are the universal runtime skills. They are intended to live in
+`.agent/skills/` inside the target repo and complement the installed
+`AGENTS.md` during normal work.
 
 They cover:
 
@@ -230,7 +242,8 @@ Current packages:
 
 ## The Operating Model
 
-The operating model itself comes from `AGENTS.md`, which is aligned to the AGENT-ZERO approach.
+The operating model itself comes from `agent/AGENTS.md`, which is aligned to
+the AGENT-ZERO approach.
 
 Key ideas:
 
@@ -265,7 +278,7 @@ That means:
 
 - universal skills express stable guidance
 - project-specific skills express local wiring, constraints, and exceptions
-- `AGENTS.md` remains the highest-order behavioral contract
+- the installed `AGENTS.md` remains the highest-order behavioral contract
 
 ---
 
@@ -273,7 +286,7 @@ That means:
 
 In a target repository, the sequence should be:
 
-1. Install `AGENTS.md` and the relevant skill packs.
+1. Install `agent/AGENTS.md` into the target repo as `AGENTS.md` and add the relevant skill packs.
 2. Use the initial repository bootstrap prompt to create the Memory Bank according to the AGENTS 2.2 spec.
 3. If needed, use `dynamic-skills/` to generate local project-specific skills.
 4. On subsequent boots, use `startup`.
@@ -283,7 +296,7 @@ In a target repository, the sequence should be:
 
 If the AI is confused about "what matters most," it should prefer:
 
-- `AGENTS.md` over any summary prose
+- installed `AGENTS.md` over any summary prose
 - universal skills over vague ad hoc prompting
 - project-specific skills for repo-local rules, but only within that narrower scope
 
@@ -306,7 +319,8 @@ This project is not presented as an official implementation of, fork of, or endo
 
 ## References
 
-- Canonical operating guide in this repo: [AGENTS.md](./AGENTS.md)
+- Canonical operating guide source in this repo: [agent/AGENTS.md](./agent/AGENTS.md)
+- Template-repo guardrail file: [AGENTS.md](./AGENTS.md)
 - Detailed install guide: [docs/install-into-existing-repo.md](./docs/install-into-existing-repo.md)
 - Optional skill install guide: [docs/install-optional-skills.md](./docs/install-optional-skills.md)
 - Upstream operating-model reference: [AGENT-ZERO](https://github.com/msitarzewski/AGENT-ZERO)
