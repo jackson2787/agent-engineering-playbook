@@ -28,8 +28,6 @@ When installing this playbook into a target repo, copy:
   deployed repo. The deployable source file is `agent/AGENTS.md`.
 - Skills in `skills/`, `backend-skills/`, and `frontend-skills/` are source
   assets that get copied into a target repo's `.agent/skills/`.
-- `dynamic-skills/` contains setup prompts for generating project-specific
-  skills. They are not normal runtime skills.
 - Generated project-specific skills belong only in the target repo under
   `.agent/skills/project-*/`, not back in this template repo.
 - Optional skills remain manually invoked add-ons even after installation.

@@ -81,16 +81,11 @@ target-repo/
         ├── verification-before-completion/
         ├── writing-docs/
         ├── writing-plans/
-        ├── backend-secure-coding/             # optional
-        ├── backend-architect-supabase-hono/   # optional
-        ├── backend-supabase-hono-secure-coding/ # optional
         ├── supabase-postgres-best-practices/  # optional
         ├── accessible-ui/                     # optional
         ├── api-feature-request/               # optional
         ├── composition-patterns/              # optional
         ├── expo-native-data-fetching/         # optional
-        ├── frontend-mobile-secure-coding/     # optional
-        ├── frontend-web-secure-coding/        # optional
         ├── react-best-practices/              # optional
         └── react-native-skills/               # optional
 ```
