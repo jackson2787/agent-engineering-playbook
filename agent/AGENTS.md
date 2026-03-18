@@ -210,11 +210,18 @@ PLAN [approve] → BUILD → DIFF → QA [pass] → APPROVAL [approve] → APPLY
   └───────────────────────────────────[major changes needed]─────┘
 ```
 
+**Core Skill Usage Rule**:
+- The state machine is the source of truth for transitions and gates.
+- Universal skills nudge behavior *inside* a state; they do not redefine the state machine.
+
 ---
 
 ### PLAN
 
 **In**: Task contract + MB context | **Out**: Implementation plan | **Exit**: User approves
+
+**Core Skill Nudge**:
+- Load `.agent/skills/writing-plans/SKILL.md` while operating in PLAN.
 
 **Required Content**:
 ```markdown
@@ -251,6 +258,9 @@ PLAN [approve] → BUILD → DIFF → QA [pass] → APPROVAL [approve] → APPLY
 
 **Substate**: Set to `CODING`
 
+**Core Skill Nudge**:
+- Load `.agent/skills/build-execution/SKILL.md` when entering BUILD.
+
 **Actions**:
 1. Work in branch/temp clone (never main)
 2. Create/modify files per approved plan
@@ -281,6 +291,9 @@ PLAN [approve] → BUILD → DIFF → QA [pass] → APPROVAL [approve] → APPLY
 ### DIFF
 
 **In**: BUILD complete | **Out**: Rationale + diff | **Exit**: Ready for QA
+
+**Core Skill Nudge**:
+- No separate core skill. DIFF remains a state-machine responsibility and should reflect work completed under `build-execution`.
 
 **Present**:
 ```markdown
@@ -317,6 +330,10 @@ tests/test.ext    | 200 +++++++++++++++++++++++++++
 
 **Substate**: Set to `RUNNING`
 
+**Core Skill Nudges**:
+- Load `.agent/skills/verification-before-completion/SKILL.md` before making any pass, fixed, or complete claims.
+- If checks fail, the root cause is unclear, or repeated fixes start thrashing, load `.agent/skills/systematic-debugging/SKILL.md` and return to BUILD with a grounded fix.
+
 **Execute**:
 1. Test suite (via MCP or project command)
 2. Linters and code quality checks
@@ -351,6 +368,9 @@ tests/test.ext    | 200 +++++++++++++++++++++++++++
 ### APPROVAL (HUMAN GATE)
 
 **In**: QA passed | **Out**: User decision | **Exit**: User approves explicitly
+
+**Core Skill Nudge**:
+- No separate core skill. APPROVAL is the human gate defined by this state machine.
 
 **Present**:
 ```markdown
@@ -398,6 +418,9 @@ Code changes complete. Ready for review.
 
 **In**: User approved | **Out**: Changes applied or rollback | **Exit**: Applied successfully OR rolled back
 
+**Core Skill Nudge**:
+- No separate core skill. APPLY remains a mechanical state-machine action after explicit approval.
+
 **Actions**:
 1. Apply all proposed changes to sandbox branch
 2. Verify application successful
@@ -440,6 +463,9 @@ Returning to BUILD.
 **In**: APPLY succeeded + user approved code | **Out**: Task docs, MB updates | **Exit**: All docs complete
 
 **CRITICAL**: Only enter after user approved code changes (from APPROVAL state)
+
+**Core Skill Nudge**:
+- Load `.agent/skills/writing-docs/SKILL.md` when entering DOCS after APPLY succeeds.
 
 **Create**:
 1. Task doc: `memory-bank/tasks/YYYY-MM/DDMMDD_task-name.md`
