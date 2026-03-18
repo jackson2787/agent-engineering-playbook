@@ -146,6 +146,7 @@ Initial repository bootstrap prompt:
 ```text
 Read AGENTS.md first. This repository uses AGENTS.md as the primary operating model and .agent/skills/ as the complementary capability layer.
 Before loading domain skills, confirm which production profile this repo is using: frontend web, frontend mobile, backend generic, or backend hono-supabase.
+When creating or refreshing `projectbrief.md`, `productContext.md`, `systemPatterns.md`, `techContext.md`, or `projectRules.md`, load `.agent/skills/bootstrap-memory-bank/SKILL.md` and work one document at a time with explicit human confirmation before writing.
 Examine the code base to create the memory bank according to the AGENTS 2.2 spec. Do not use readme files or other documentation as the primary source; examine the code and logic.
 After that, load the relevant universal skills from .agent/skills/ and follow the PLAN -> BUILD -> DIFF -> QA -> APPROVAL -> APPLY -> DOCS workflow.
 If project-specific skills exist under .agent/skills/project-*/, use them alongside the universal skills: they define this repo's specific wiring and local constraints, while the universal skills remain the higher-level source of truth for architecture, quality, and execution discipline.
