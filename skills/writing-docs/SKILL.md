@@ -1,6 +1,6 @@
 ---
 name: writing-docs
-description: Use when entering the AGENTS.md DOCS state, after executing-plans is complete and the user has approved the QA'd code.
+description: Use when entering the AGENTS.md DOCS state, after BUILD/DIFF/QA are complete, the user has approved the reviewed code, and APPLY has succeeded.
 ---
 
 # Writing Docs
