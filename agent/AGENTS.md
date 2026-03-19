@@ -230,6 +230,13 @@ EXPLORE [task contract] → PLAN [approve] → BUILD → DIFF → QA [pass] → 
 - The state machine is the source of truth for transitions and gates.
 - Universal skills nudge behavior *inside* a state; they do not redefine the state machine.
 
+**State Announcement Rule**:
+At every state transition, output a state line:
+```
+[STATE: <STATE>/<SUBSTATE>] Task: <task name or "none">
+```
+This is your breadcrumb. If you lose track, your last state line and `activeContext.md` Current State section are the truth. If the user asks "what state are you in?", read `activeContext.md` and announce.
+
 ---
 
 ### EXPLORE (Default Entry State)
