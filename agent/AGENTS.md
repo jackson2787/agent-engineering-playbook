@@ -1,6 +1,6 @@
 # AGENTS.md
 
-**Version**: 2.2 (2025-03-04) | **Compatibility**: Claude, Cursor, Copilot, Cline, Aider, all AGENTS.md-compatible tools
+**Version**: 2.3 (2026-03-19) | **Compatibility**: Claude, Cursor, Copilot, Cline, Aider, all AGENTS.md-compatible tools
 **Status**: Canonical single-file guide for AI-assisted development
 
 ---
@@ -49,7 +49,7 @@ COMPLIANCE CONFIRMED: Reuse over creation
 - [ ] Analyzed extension:
   - [ ] `existing/file1.ext` - Cannot extend: [specific technical reason]
   - [ ] `existing/file2.ext` - Cannot extend: [specific technical reason]
-- [ ] Checked patterns: `systemPatterns.md#[section]`
+- [ ] Checked patterns: `architecture.md#[section]`
 - [ ] Justification: New file needed because [exhaustive reasoning]
 ```
 
@@ -77,14 +77,13 @@ COMPLIANCE CONFIRMED: Reuse over creation
 **Fast Track** (bug fixes, small changes):
 ```
 - [ ] Load current month README: `memory-bank/tasks/YYYY-MM/README.md`
-- [ ] Check recent achievements and next priorities
-- [ ] Load `quick-start.md` if needed
+- [ ] Load `activeContext.md` (current state, progress, session data)
 ```
 
 **Standard Discovery** (features, tests, quality-critical work):
 ```
 - [ ] Current month README
-- [ ] Core files: projectbrief.md, systemPatterns.md, techContext.md, activeContext.md, progress.md
+- [ ] Core files: projectBrief.md, architecture.md, activeContext.md
 - [ ] Scan docs/ for recent updates
 - [ ] Scan root for instructions.md, ai_instructions.md
 - [ ] Verify toc.md and activeContext.md current
@@ -155,15 +154,11 @@ When context has been compressed (detected by loss of earlier conversation detai
 ```
 memory-bank/
 ├── toc.md                    # Index (update after new files/tasks)
-├── projectbrief.md           # Vision, goals (rarely change)
+├── projectBrief.md           # Vision, goals (rarely change)
 ├── productContext.md         # User goals, market (quarterly)
-├── systemPatterns.md         # Architecture (pattern discovery)
-├── techContext.md            # Tech stack (new tech adoption)
-├── activeContext.md          # Current sprint (weekly/milestone)
-├── progress.md               # Status, blockers (major features)
-├── projectRules.md           # Coding standards (new patterns)
-├── decisions.md              # ADRs (architectural decisions)
-├── quick-start.md            # Common patterns, session data
+├── architecture.md           # Patterns, rules, tech stack (consolidates systemPatterns + projectRules + techContext)
+├── activeContext.md          # Working state: current focus, progress, blockers, session data (consolidates progress + quick-start)
+├── decisions.md              # ADRs - append-only (architectural decisions)
 ├── database-schema.md        # Data models (if applicable)
 ├── build-deployment.md       # Build/deploy procedures
 ├── testing-patterns.md       # Test strategies
@@ -179,16 +174,85 @@ memory-bank/
 | File | Purpose | Load When | Update When |
 |------|---------|-----------|-------------|
 | `toc.md` | Index/navigation | After adding files | After new files/tasks |
-| `projectbrief.md` | Core requirements | Complex tasks | Major pivots |
+| `projectBrief.md` | Core requirements | Complex tasks | Major pivots |
 | `productContext.md` | User goals, market | Complex tasks | Quarterly/strategy shifts |
-| `systemPatterns.md` | Architecture patterns | Before arch changes | Pattern discovery |
-| `techContext.md` | Tech stack decisions | Session start | New tech adoption |
-| `activeContext.md` | Current focus | Every session | Weekly/milestones |
-| `progress.md` | Current state | Session start | Major features done |
-| `projectRules.md` | Coding standards | When uncertain | New patterns emerge |
-| `decisions.md` | Why X over Y | Arch decisions | Arch decisions made |
+| `architecture.md` | Patterns, rules, tech stack | Before arch changes, when uncertain, session start | Pattern discovery, new tech, new rules |
+| `activeContext.md` | Working state: focus, progress, blockers, session data | Every session | State transitions, milestones, major features |
+| `decisions.md` | Why X over Y (append-only) | Arch decisions | Arch decisions made |
 | `tasks/*/README.md` | Monthly summary | Month-specific work | Month end/milestone |
 | `tasks/*/*.md` | Task documentation | Investigating issues | After approval only |
+
+### Required Internal Structure
+
+Consolidated files **must** use these section headings. Agents write only to the matching section.
+
+**`architecture.md`** (three sections — one file, clear boundaries):
+
+```markdown
+# Architecture
+
+## Tech Stack
+<!-- Was techContext.md. Factual technical context only. -->
+- Languages, frameworks, and versions
+- Repository structure and entry points
+- Tooling and required commands (build, test, lint, deploy)
+- Runtime and hosting
+- External services visible in code or config
+
+## Patterns
+<!-- Was systemPatterns.md. Repeated, intentional architectural patterns only. -->
+- Major layers and boundaries
+- Data-flow patterns
+- Integration patterns
+- Reuse patterns that appear multiple times
+- Legacy or transitional patterns (labeled explicitly)
+
+## Rules
+<!-- Was projectRules.md. Enforceable local laws only. -->
+- Mandatory local conventions
+- Approved patterns already enforced in the repo
+- Forbidden moves
+- Tooling or workflow constraints
+```
+
+**Boundary rules for `architecture.md`**:
+- Tech Stack is factual — what the repo *uses*. No opinions.
+- Patterns are observed — what the repo *does repeatedly*. Not aspirational.
+- Rules are enforced — what the repo *requires*. Must be confirmed or provable.
+- Do not duplicate across sections. A tech choice goes in Tech Stack, the pattern it enables goes in Patterns, the rule enforcing it goes in Rules.
+
+**`activeContext.md`** (three sections — single source of working state):
+
+```markdown
+# Active Context
+
+## Current State
+<!-- State machine position and task focus. Updated at every state transition. -->
+- Current state and substate (e.g., BUILD/CODING)
+- Active task name and objective
+- Working context (key files, decisions in progress, pending questions)
+- Loose context from conversation (user preferences, verbal requirements)
+
+## Progress
+<!-- Status and trajectory. Updated at milestones and major features. -->
+- Recent completions (with dates)
+- Current blockers
+- Near-term focus / next priorities
+- Known gaps
+
+## Session Data
+<!-- Operational shortcuts. Updated when new useful patterns are discovered. -->
+- Common commands (build, test, deploy, lint)
+- Key entry points and navigation hints
+- Environment setup notes
+- Frequently referenced files or paths
+```
+
+**Boundary rules for `activeContext.md`**:
+- Current State is ephemeral — changes at every state transition. This is the compaction recovery anchor.
+- Progress is directional — changes at milestones. Tracks trajectory, not moment-to-moment state.
+- Session Data is stable — changes rarely. Captures what an agent needs to start working fast.
+- At compaction recovery, read all three sections. For state transitions, update only Current State.
 
 ### Read vs Write Paths
 
@@ -229,7 +293,7 @@ PLAN [approve] → BUILD → DIFF → QA [pass] → APPROVAL [approve] → APPLY
 
 **Analyzed**:
 - `path/file.ext:50-100` - Current implementation of X
-- `memory-bank/systemPatterns.md#Pattern` - Established pattern for Y
+- `memory-bank/architecture.md#Pattern` - Established pattern for Y
 - `path/service.ext` - Service handling Z
 
 **Reuse Strategy**:
@@ -265,7 +329,7 @@ PLAN [approve] → BUILD → DIFF → QA [pass] → APPROVAL [approve] → APPLY
 1. Work in branch/temp clone (never main)
 2. Create/modify files per approved plan
 3. Implement minimal changes achieving objective
-4. Follow patterns from `projectRules.md`
+4. Follow patterns from `architecture.md`
 5. Add tests alongside implementation
 6. Generate unified diff
 7. **DO NOT APPLY**
@@ -284,7 +348,7 @@ PLAN [approve] → BUILD → DIFF → QA [pass] → APPROVAL [approve] → APPLY
 - Add error handling using project's patterns
 
 **Exit**: All planned changes done, tests written, no syntax errors, diff generated, **NOT APPLIED**
-**Failures**: Compilation errors → fix, stay in BUILD | Pattern violations → review `projectRules.md` | Integration conflicts → review `systemPatterns.md` | Two identical diffs → STALL DETECTED
+**Failures**: Compilation errors → fix, stay in BUILD | Pattern violations or integration conflicts → review `architecture.md` | Two identical diffs → STALL DETECTED
 
 ---
 
@@ -307,13 +371,13 @@ tests/test.ext    | 200 +++++++++++++++++++++++++++
 **Diff**: [unified diff output]
 
 **Rationale**:
-- Modified `file1.ext` to extend per `systemPatterns.md#Pattern`
+- Modified `file1.ext` to extend per `architecture.md#Pattern`
 - Created `file2.ext` because [specific technical reason]
 - Tests follow pattern from `existing_test.ext`
 
 **Integration**: `component.ext:45` calls new method | `service.ext:120` updated | No breaking API changes
 
-**MB References**: `systemPatterns.md#Architecture` | `decisions.md#2025-09-15-strategy`
+**MB References**: `architecture.md#Architecture` | `decisions.md#2025-09-15-strategy`
 ```
 
 **Exit**: Changes presented with rationale, MB references, new file justification (if any)
@@ -461,7 +525,7 @@ Returning to BUILD.
 **Create**:
 1. Task doc: `memory-bank/tasks/YYYY-MM/DDMMDD_task-name.md`
 2. Update monthly README: `memory-bank/tasks/YYYY-MM/README.md`
-3. Update `projectRules.md` if new patterns
+3. Update `architecture.md` if new patterns, rules, or tech stack changes
 4. Update `decisions.md` if arch decisions
 5. Update `toc.md` if new MB files
 6. Open documentation PR (or commit if user prefers)
@@ -485,8 +549,8 @@ Returning to BUILD.
 - `tests/test.ext` - Tests for [functionality]
 
 ## Patterns Applied
-- `systemPatterns.md#Pattern`
-- Updated `projectRules.md#ErrorHandling` (added: log at integration boundaries)
+- `architecture.md#Patterns/Pattern`
+- Updated `architecture.md#Rules/ErrorHandling` (added: log at integration boundaries)
 
 ## Integration Points
 - `component.ext:45` via new method
@@ -515,9 +579,9 @@ Returning to BUILD.
 
 **MB Updates**:
 
-`projectRules.md`:
+`architecture.md` (add to relevant section — Patterns, Rules, or Tech Stack):
 ```markdown
-### [New Pattern]
+### [New Pattern/Rule/Tech]
 **Context**: Discovered during [task]
 **Pattern**: [description]
 **Implementation**: [how to apply]
@@ -563,7 +627,7 @@ Returning to BUILD.
 ### Historical Reference
 - **Prior Tasks**: [links to `tasks/YYYY-MM/DDMMDD_*.md`]
 - **Arch Decisions**: [links to `decisions.md` entries]
-- **Related Patterns**: [refs to `systemPatterns.md`, `projectRules.md`]
+- **Related Patterns**: [refs to `architecture.md`]
 
 ### Architectural Constraints
 - **Must Follow**: [specific patterns from MB]
@@ -666,7 +730,7 @@ Test fixtures and test mocks are acceptable. Production fake data is never accep
 
 **Before creating any new file**:
 1. Search codebase for similar functionality
-2. Check `systemPatterns.md` for patterns
+2. Check `architecture.md` for patterns
 3. Review existing architecture for extension points
 4. Document why extension impossible (if claiming so)
 
@@ -686,7 +750,7 @@ If any item fails, address before APPROVAL state.
 
 **Requirements**: Zero errors before APPROVAL | Warnings OK with justification | Follow project's linting rules
 
-**Standards**: Language idioms | Consistent naming (from `projectRules.md`) | Single-purpose functions | Max 3-4 nesting levels | Comment complex logic only
+**Standards**: Language idioms | Consistent naming (from `architecture.md`) | Single-purpose functions | Max 3-4 nesting levels | Comment complex logic only
 
 ### Testing Requirements
 
@@ -700,7 +764,7 @@ If any item fails, address before APPROVAL state.
 - Any `memory-bank/tasks/*/` files (task docs)
 - Updates to `memory-bank/tasks/*/README.md` (monthly summaries)
 - Updates to `memory-bank/decisions.md` (ADRs)
-- Updates to `memory-bank/projectRules.md` (patterns)
+- Updates to `memory-bank/architecture.md` (patterns/rules)
 - Any commits to version control
 
 **Files NOT Requiring Approval**: App code, tests, config updates, operational logs
@@ -715,12 +779,12 @@ If any item fails, address before APPROVAL state.
 
 **Citation Formats**:
 - Code: `path/file.ext:42` (single line) | `path/file.ext:42-58` (range) | `path/file.ext:functionName()` (function)
-- MB: `memory-bank/systemPatterns.md#Section` | `memory-bank/decisions.md#2025-10-15-decision` | `memory-bank/tasks/2025-10/251025_task.md`
-- Always include context: ✅ "Extended `services/auth.ext:45` following `systemPatterns.md#Service Extension Pattern`" | ❌ "Updated service per systemPatterns.md"
+- MB: `memory-bank/architecture.md#Section` | `memory-bank/decisions.md#2025-10-15-decision` | `memory-bank/tasks/2025-10/251025_task.md`
+- Always include context: ✅ "Extended `services/auth.ext:45` following `architecture.md#Service Extension Pattern`" | ❌ "Updated service per architecture.md"
 
 **When to Update MB**:
-- ✅ Completing major features (update `progress.md`)
-- ✅ Discovering new patterns (update `systemPatterns.md`, `projectRules.md`)
+- ✅ Completing major features (update `activeContext.md` progress section)
+- ✅ Discovering new patterns (update `architecture.md`)
 - ✅ Making arch decisions (update `decisions.md`)
 - ✅ User explicitly requests: "update memory bank"
 - ✅ Milestone completion (update monthly README)
@@ -756,8 +820,8 @@ If any item fails, address before APPROVAL state.
 **Analyzed**:
 - `services/onboarding.ext:120-150` - Current completion logic
 - `services/notification.ext` - Existing notification service
-- `systemPatterns.md#Event-Driven` - Event pattern
-- `projectRules.md#Email Templates` - Email standards
+- `architecture.md#Patterns/Event-Driven` - Event pattern
+- `architecture.md#Rules/Email Templates` - Email standards
 
 **Reuse**:
 - Extend `onboarding.ext:145` - emit "onboarding_completed" event
@@ -838,7 +902,7 @@ tests/notification_onboarding_test.ext         | 120 +++++++++++
 + register_event_listener('onboarding_completed', handle_onboarding_completed)
 ```
 
-**Rationale**: Follows `systemPatterns.md#Event-Driven Notifications` | Template matches existing structure | Tests mirror `tests/notification_welcome_test.ext`
+**Rationale**: Follows `architecture.md#Patterns/Event-Driven Notifications` | Template matches existing structure | Tests mirror `tests/notification_welcome_test.ext`
 
 **Integration**: No breaking changes | Event system handles async | Existing retry logic for failures
 
