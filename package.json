@@ -3,6 +3,15 @@
   "version": "2.4.0",
   "description": "Install the agent-engineering-playbook operating model into any project",
   "license": "MIT",
+  "author": "Ian Jackson",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jackson2787/agent-engineering-playbook.git"
+  },
+  "homepage": "https://github.com/jackson2787/agent-engineering-playbook#readme",
+  "bugs": {
+    "url": "https://github.com/jackson2787/agent-engineering-playbook/issues"
+  },
   "bin": {
     "agent-playbook": "./bin/agent-playbook.js"
   },
