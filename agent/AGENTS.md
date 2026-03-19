@@ -66,46 +66,23 @@ COMPLIANCE CONFIRMED: Reuse over creation
 
 ## 2. Session Startup
 
-### Load Priority (Choose Based on Task Complexity)
+### Every Session
 
-**Every Session** (mandatory):
 1. Output compliance statement (Section 1)
 2. Attach MCP servers: Read `.brain/mcp.config.json` or `.mcp.json` if present
-3. Load Memory Bank per mode below
-4. Enter EXPLORE state (default — await task contract or user direction)
-5. Log session: `{"ts":"2025-10-25T10:30Z","mode":"fast|standard|deep","mb_v":"2024-10"}`
+3. Load Memory Bank:
+   ```
+   - [ ] activeContext.md (current state, progress, session data)
+   - [ ] architecture.md (patterns, rules, tech stack)
+   - [ ] projectBrief.md (project identity)
+   - [ ] toc.md (file index)
+   - [ ] tasks/YYYY-MM/README.md (current month)
+   ```
+4. Enter EXPLORE state
+5. Output state: `[STATE: EXPLORE/IDLE] Task: none`
 
-**Fast Track** (bug fixes, small changes):
-```
-- [ ] Load current month README: `memory-bank/tasks/YYYY-MM/README.md`
-- [ ] Load `activeContext.md` (current state, progress, session data)
-```
-
-**Standard Discovery** (features, tests, quality-critical work):
-```
-- [ ] Current month README
-- [ ] Core files: projectBrief.md, architecture.md, activeContext.md
-- [ ] Scan docs/ for recent updates
-- [ ] Scan root for instructions.md, ai_instructions.md
-- [ ] Verify toc.md and activeContext.md current
-```
-
-**Deep Dive** (architecture, legacy investigation):
-```
-- [ ] Standard Discovery files
-- [ ] Specific month README when investigating legacy
-- [ ] decisions.md for architectural context
-- [ ] Cross-reference with current work patterns
-```
-
-### Session Logging (Operational Log - Separate from Memory Bank)
-
-Append-only JSONL format:
-```json
-{"timestamp":"2025-10-25T10:30:00Z","session_id":"uuid","mode":"standard","mb_version":"2024-10"}
-{"timestamp":"2025-10-25T10:35:00Z","session_id":"uuid","event":"state_transition","from":"PLAN","to":"BUILD"}
-{"timestamp":"2025-10-25T11:00:00Z","session_id":"uuid","event":"approval_requested","state":"APPROVAL"}
-```
+Load `decisions.md`, `productContext.md`, or specific task docs on demand when
+needed during the session. Do not pre-load everything.
 
 ### Compaction Protocol (Mid-Session Context Preservation)
 
@@ -115,14 +92,9 @@ Compaction (context compression) can happen at any time — triggered by the sys
 
 At each state transition (`EXPLORE → PLAN → BUILD → DIFF → QA → APPROVAL → APPLY → DOCS`), persist the following to the Memory Bank:
 
-1. **State machine position**: Load `.agent/skills/memory-bank/update-active-context/SKILL.md` → update Current State section only
+1. **State machine position**: Load `.agent/skills/memory-bank/update-active-context/SKILL.md` → update Current State section with current state, substate, cycle count, and loose context
 2. **Task progress**: Append current status to `tasks/YYYY-MM/README.md` with `[IN-PROGRESS]` tag
 3. **Decisions**: If new architectural decisions, load `.agent/skills/memory-bank/update-decisions/SKILL.md` → append entry
-4. **Log transition** to operational log:
-   ```json
-   {"timestamp":"...","session_id":"uuid","event":"state_transition","from":"PLAN","to":"BUILD"}
-   ```
-5. **Loose context**: Captured in `activeContext.md` Current State section via the `update-active-context` skill (step 1)
 
 This ensures that when compaction occurs — without warning — the Memory Bank already reflects the latest state.
 
@@ -130,13 +102,13 @@ This ensures that when compaction occurs — without warning — the Memory Bank
 
 When context has been compressed (detected by loss of earlier conversation detail, or after `/compact`):
 
-1. Re-enter **Session Startup** (Section 2) using **Fast Track** mode — the Memory Bank was just updated via continuous persistence, so full discovery is unnecessary
-2. Confirm state machine position from `activeContext.md`
+1. Re-read `activeContext.md` — it was updated at the last transition
+2. Confirm state machine position and cycle count from Current State section
 3. Resume from saved state — do not restart the current task from scratch
 4. Output recovery confirmation:
    ```
    COMPACTION RECOVERY: Resumed [STATE] for [task name]
-   Context restored from: activeContext.md, tasks/YYYY-MM/README.md
+   Cycle: [n]/[max] | Context restored from: activeContext.md
    ```
 
 #### Rules
@@ -144,7 +116,7 @@ When context has been compressed (detected by loss of earlier conversation detai
 - State persistence happens at every transition, not "before compaction" — you cannot rely on advance notice
 - After detecting compaction, always re-read Memory Bank before taking any action
 - If the current state is `APPROVAL` or `DIFF`, the diff summary should already be in `activeContext.md` from the transition save
-- Compaction does not reset budgets — carry forward cycle/token/minute counts from the operational log
+- Compaction does not reset budgets — cycle count is persisted in `activeContext.md` Current State section
 
 ---
 
@@ -691,7 +663,7 @@ If any item fails, address before APPROVAL state.
 - Updates to `memory-bank/architecture.md` (patterns/rules)
 - Any commits to version control
 
-**Files NOT Requiring Approval**: App code, tests, config updates, operational logs
+**Files NOT Requiring Approval**: App code, tests, config updates
 
 **Approval Gate Workflow**:
 1. Complete code changes (BUILD → DIFF → QA)
@@ -727,7 +699,7 @@ If any item fails, address before APPROVAL state.
 1. Identify last known good state
 2. Restore all files to that state
 3. Verify rollback successful
-4. Log rollback in operational log
+4. Update `activeContext.md` Current State section with rollback status
 5. Report to user: reason, reverted changes, current state, recommendation
 
 ---
@@ -968,10 +940,9 @@ Stuck? → Cycles ≥3?
 
 **Response**:
 1. Detect: Compare current diff with previous
-2. Log: Record in operational log
-3. Halt: Stop all BUILD attempts
-4. Report: Present diagnosis to user
-5. Request: More context, alternative approach, or agent swap
+2. Halt: Stop all BUILD attempts
+3. Report: Present diagnosis to user
+4. Request: More context, alternative approach, or agent swap
 
 ### Recovery Procedures
 
@@ -992,7 +963,7 @@ Stuck? → Cycles ≥3?
 
 **Agent Swap** (capability mismatch):
 1. Complete current state (clean boundary)
-2. Document progress in operational log
+2. Update `activeContext.md` with current progress and handoff context
 3. Prepare focused context: task contract, relevant MB files, current work state
 4. Spawn specialized agent with focused context
 5. Let specialized agent complete subtask

@@ -6,8 +6,9 @@
 <!-- RULE: State transitions ONLY touch this section. -->
 
 ### State
-- **Position**: IDLE
+- **Position**: EXPLORE/IDLE
 - **Task**: No active task
+- **Cycle**: 0/3
 - **Branch**: N/A
 
 ### Working Context

@@ -64,6 +64,7 @@ sections. The HTML comments are part of the constitution and must be preserved.
 ### State
 - **Position**: [STATE/SUBSTATE] (e.g., BUILD/CODING)
 - **Task**: [Active task name and objective, or "No active task"]
+- **Cycle**: [n]/[max] (e.g., 1/3 — tracks BUILD→QA iterations for stall detection)
 - **Branch**: [Working branch name, if applicable]
 
 ### Working Context
