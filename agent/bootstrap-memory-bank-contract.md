@@ -1,285 +1,120 @@
-# Bootstrap Memory Bank Contract
+# Bootstrap Memory Bank
 
 ## Purpose
 
-Use this contract once, immediately after installing `AGENTS.md` into a target
-repository, or later when deliberately recalibrating the foundational Memory
-Bank files.
+One-time cold start. Populate the scaffolded memory bank from repo code. No
+human interaction — just scan, write, and flag gaps.
 
-This contract is for bootstrap only. It does not replace the installed
-`AGENTS.md` state machine for normal work.
+The memory bank files and directory structure already exist (created by
+`agent-playbook init`). This bootstrap fills them with evidence from the
+codebase.
 
 ## Source And Install Path
 
 - Template source path: `agent/bootstrap-memory-bank-contract.md`
 - Installed target-repo path: `.agent/bootstrap-memory-bank-contract.md`
 
-## Required Outcome
+## Rules
 
-Create or refresh a trustworthy AGENTS 2.3 Memory Bank for the target repo.
+1. **Code is the only evidence.** Examine source code, configs, manifests,
+   lockfiles, tests, CI files, schemas, migrations, and generated types. Do not
+   read README files, docs, ADRs, or any other markdown as evidence.
+2. **Use the memory bank skills for all writes.** Each document has an update
+   skill under `.agent/skills/memory-bank/`. Use the correct skill for each
+   file — it enforces the document's structure and validation rules.
+3. **Prefer sparse truth over detailed fiction.** If the code does not prove
+   something, do not write it. Mark gaps as `<!-- NEEDS CONFIRMATION -->` and
+   move on.
+4. **Do not ask the human anything.** Bootstrap is a machine operation. Flag
+   what you cannot prove. The human uses `mb-rebase` to calibrate afterwards.
+5. **Do not create files that do not already exist.** The scaffolding is already
+   done. You are populating, not creating.
 
-At minimum, create or update these foundation files:
+## Procedure
 
-- `memory-bank/projectbrief.md`
-- `memory-bank/productContext.md`
-- `memory-bank/architecture.md` (uses template from `agent/templates/architecture.md`)
+### Step 1: Evidence Sweep
 
-If they do not already exist, also scaffold these operational files so the repo
-can start using the Memory Bank immediately:
+Scan the repository. Focus on:
 
-- `memory-bank/toc.md`
-- `memory-bank/activeContext.md` (uses template from `agent/templates/activeContext.md`)
-- `memory-bank/decisions.md`
-- `memory-bank/tasks/YYYY-MM/README.md`
-
-Only create additional files such as `build-deployment.md`,
-`database-schema.md`, or `testing-patterns.md` if the repository provides strong
-direct evidence for them and the added file would clearly improve future
-sessions.
-
-## Non-Negotiables
-
-- Examine source code, folder structure, manifests, lockfiles, configs, tests,
-  CI files, deployment files, schemas, generated types, and migrations as the
-  primary evidence base.
-- During bootstrap, do not read project markdown or other prose documentation as
-  evidence.
-- The only markdown exception is this contract itself, and it may be used only
-  as procedure, never as repository evidence.
-- Do not read `AGENTS.md`, README files, docs, ADRs, task notes, or existing
-  Memory Bank markdown during the primary scaffold pass.
-- If a bootstrap is being refreshed rather than created from scratch, compare
-  existing Memory Bank files only after the code-backed draft exists, and treat
-  them as claims to verify rather than as truth.
-- Separate `Observed`, `Inferred`, and `Needs confirmation`.
-- Never turn weak guesses into Memory Bank facts.
-- Prefer sparse truth over detailed fiction.
-- Do not create a Memory Bank in this template repository. This contract is for
-  an installed target repo.
-
-## Preflight
-
-1. Confirm you are operating in the target repository, not the template repo.
-2. Determine whether this is an initial bootstrap or a deliberate refresh.
-3. If this is an initial bootstrap, do not read any existing project markdown.
-4. If this is a refresh, postpone reading existing Memory Bank markdown until
-   after the code-backed draft exists.
-
-## Phase 1: Primary Evidence Sweep
-
-Inspect the repository directly before writing anything:
-
-- entry points and application boundaries
-- package manifests and lockfiles
-- framework, lint, test, and type configs
-- routes, screens, handlers, services, stores, and data-access layers
-- auth, billing, onboarding, and external integration flows
+- Entry points and application boundaries
+- Package manifests and lockfiles
+- Framework, lint, test, and type configs
+- Routes, handlers, services, stores, data-access layers
+- Auth, billing, onboarding, and integration flows
 - CI workflows and deployment files
-- migrations, schemas, SQL, generated types, and infrastructure definitions
+- Migrations, schemas, SQL, generated types
 
-Ignore markdown and other prose documents during this phase.
+Build a mental evidence map. Classify everything as:
 
-If a code-search MCP server is connected, use it for this sweep. Prefer
-repo-wide structural search over manual directory walking when the tool can
-return complete functions, classes, handlers, routes, services, and other
-reusable code blocks. This makes the evidence sweep faster, broader, and more
-reliable without changing the no-markdown rule.
+- **Observed**: directly provable from executable files
+- **Inferred**: likely true but not explicit
+- **Unknown**: cannot determine from code alone
 
-Build an evidence notebook with three buckets:
+### Step 2: Populate Foundation Documents
 
-- `Observed`: directly supported by executable project files
-- `Inferred`: likely true from repo evidence, but not explicit
-- `Needs confirmation`: product intent, user context, local law, or any
-  high-impact assumption the repo cannot prove
+Write in this order. Use the corresponding memory bank skill for each file.
 
-## Phase 2: Draft In This Order
+1. **`architecture.md`** — via `update-architecture` skill
+   - Tech Stack: languages, frameworks, tooling, runtime, services (observed only)
+   - Patterns: repeated architectural patterns (must appear 2+ times)
+   - Rules: enforced conventions (provable from CI/lint/config only — do not invent rules)
 
-For a code-first bootstrap, draft the foundation documents in this order:
+2. **`projectBrief.md`** — via `update-project-brief` skill
+   - What the project is, core objective, scope boundaries
+   - Keep sparse. If the code cannot prove the mission, write what you can and
+     flag the rest as `<!-- NEEDS CONFIRMATION -->`
 
-1. `architecture.md` (Tech Stack section first, then Patterns, then Rules)
-2. `projectbrief.md`
-3. `productContext.md`
+3. **`productContext.md`** — via `update-product-context` skill
+   - Users, jobs to be done, critical flows, priorities
+   - This is the least provable file. Capture visible flows only. Everything
+     else goes in `Pending Human Confirmation`
 
-### `architecture.md`
+### Step 3: Populate Operational Documents
 
-Copy the structural template from `agent/templates/architecture.md`. This file
-has three mandatory sections with clear boundaries. Draft them in order because
-each builds on the previous.
+4. **`activeContext.md`** — via `update-active-context` skill
+   - Current State: "Bootstrap complete. No active delivery task."
+   - Progress: repo status, known gaps, pending confirmation count
+   - Session Data: useful commands, entry points, and navigation hints
+     discovered during the evidence sweep
 
-#### Section: `## Tech Stack`
+5. **`toc.md`** — via `update-toc` skill
+   - Reflect the current memory bank files
 
-Capture factual technical context:
+6. **`decisions.md`** — leave as scaffolded unless the code provides clear
+   evidence of an architectural decision worth recording
 
-- languages and frameworks
-- repository structure
-- tooling and required commands
-- runtime and hosting clues
-- external services visible in code or config
+### Step 4: Summary
 
-Ask the human only for what the repo cannot prove, such as the real production
-hosting target, the standard package manager when multiple lockfiles exist, or
-hidden external services not yet represented in code.
+Output a short summary:
 
-**Boundary**: what the repo *uses*. No opinions, no patterns, no rules.
-
-#### Section: `## Patterns`
-
-Capture repeated, intentional architectural patterns:
-
-- major layers and boundaries
-- data-flow patterns
-- integration patterns
-- reuse patterns that appear multiple times
-- legacy or transitional patterns that should be named explicitly
-
-Do not promote one-off implementation details, dead folders, or aspirational
-architecture to documented standards.
-
-**Boundary**: what the repo *does repeatedly*. Not aspirational. Not one-offs.
-
-#### Section: `## Rules`
-
-Capture stable local laws for future agents:
-
-- mandatory local conventions
-- approved patterns already enforced in the repo
-- forbidden moves
-- tooling or workflow constraints
-
-Only record rules that are clearly enforced, repeated, or explicitly confirmed.
-Do not copy generic framework advice or rules already covered by `AGENTS.md`.
-
-**Boundary**: what the repo *requires*. Must be confirmed or provable from code.
-
-#### Cross-section discipline
-
-- A tech choice goes in Tech Stack. The pattern it enables goes in Patterns.
-  The rule enforcing it goes in Rules. Do not duplicate.
-- If unsure which section, ask: "Is this a fact, a repeated practice, or a law?"
-
-### `projectbrief.md`
-
-Capture the stable identity and mission of the repository:
-
-- what the project is
-- the core objective it appears to serve
-- clear scope boundaries
-- practical success signals
-
-Never invent mission statements, business models, or roadmap direction from
-code alone. If the repo cannot prove the product identity or audience, keep the
-file intentionally sparse and add a clearly labeled confirmation section.
-
-### `productContext.md`
-
-Capture user and product context:
-
-- primary users or operators
-- jobs to be done
-- critical flows visible in the product
-- product priorities and tradeoffs
-
-This file is the least repo-provable. Visible flows may support careful
-inference, but user segments, pain points, and value claims should remain in a
-`Pending Human Confirmation` section unless the human confirms them.
-
-## Phase 3: Present One Consolidated Bootstrap Review
-
-Before finalizing the Memory Bank, present one consolidated review that covers
-all foundation documents.
-
-Use this shape:
-
-```markdown
-## Proposed Memory Bank Bootstrap
-
-### `architecture.md` — Tech Stack
-- Observed: ...
-- Inferred: ...
-- Needs confirmation: ...
-
-### `architecture.md` — Patterns
-- Observed: ...
-- Inferred: ...
-- Needs confirmation: ...
-
-### `architecture.md` — Rules
-- Observed: ...
-- Inferred: ...
-- Needs confirmation: ...
-
-### `projectbrief.md`
-- Observed: ...
-- Inferred: ...
-- Needs confirmation: ...
-
-### `productContext.md`
-- Observed: ...
-- Inferred: ...
-- Needs confirmation: ...
-
-## Consolidated Questions
-1. ...
-2. ...
 ```
-
-If the human is available, stop for one correction pass here.
-
-If the human explicitly asked for a one-shot scaffold or does not respond, keep
-going with these rules:
-
-- finalize high-confidence technical facts
-- keep uncertain human-driven content in `Pending Human Confirmation`
-- do not upgrade inference into canonical truth just to make the files look
-  complete
-
-## Phase 4: Finalize The Foundation Files
-
-When writing the files:
-
-- use the structural template from `agent/templates/architecture.md` for
-  `architecture.md` — preserve all HTML boundary comments
-- keep each file scoped to its own purpose
-- avoid duplicating the same content across multiple documents
-- keep confirmed facts in the main body
-- isolate unconfirmed assumptions in a clearly labeled section
-
-## Phase 5: Create The Operational Scaffolding
-
-After the foundation files are written, create any missing operational files:
-
-- `toc.md`: list the current Memory Bank files and their purpose
-- `activeContext.md`: copy the structural template from
-  `agent/templates/activeContext.md`, then populate:
-  - **Current State**: note that bootstrap is complete, record "no active
-    delivery task," capture any pending confirmation items
-  - **Progress**: summarize current repo status, known gaps, and near-term focus
-  - **Session Data**: capture the most useful commands, entry points, and
-    navigation hints discovered during the evidence sweep
-- `decisions.md`: add a placeholder note if no real architectural decisions were
-  confirmed during bootstrap
-- `tasks/YYYY-MM/README.md`: add a bootstrap entry summarizing what was created
-  and what still needs confirmation
-
-Do not create a dated task document unless the user explicitly wants task-level
-bootstrap documentation.
-
-## Finish
-
-End with a concise summary of:
-
-- what was confirmed from repo evidence
-- what remained inferred
-- what still needs human confirmation
-- which files were created or refreshed
+BOOTSTRAP COMPLETE
+- Files populated: [list]
+- Observed facts: [count]
+- Needs confirmation: [count]
+- Next step: Run mb-rebase on each foundation document to calibrate with human
+```
 
 ## Suggested Prompt
 
 ```text
-Read `.agent/bootstrap-memory-bank-contract.md` and execute it.
-Use code, config, tests, manifests, CI, schemas, and runtime files as primary
-evidence. Do not read project markdown or other prose documentation during the
-bootstrap pass. Treat this contract as procedure only, not as repository
-evidence. If something is not provable from the repo, keep it in a clearly
-labeled pending-confirmation section instead of inventing it.
+Read .agent/bootstrap-memory-bank-contract.md and execute it.
+Examine the codebase — code, config, tests, manifests, CI, schemas, runtime
+files. Do not read markdown or documentation as evidence. Use the memory bank
+skills for all writes. If something is not provable from the repo, flag it and
+move on. Do not ask me any questions during bootstrap.
 ```
+
+## After Bootstrap
+
+The memory bank now contains a code-backed first draft. To calibrate each
+document with human knowledge, use the `mb-rebase` skill:
+
+```text
+mb-rebase projectBrief.md
+mb-rebase productContext.md
+mb-rebase architecture.md
+```
+
+This is where the human fills in gaps, corrects inferences, and confirms or
+rejects what the bootstrap found.
