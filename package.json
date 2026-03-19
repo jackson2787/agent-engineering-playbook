@@ -1,0 +1,36 @@
+{
+  "name": "agent-playbook",
+  "version": "2.3.0",
+  "description": "Install the agent-engineering-playbook operating model into any project",
+  "license": "MIT",
+  "bin": {
+    "agent-playbook": "./bin/agent-playbook.js"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "agent/",
+    "skills/",
+    "skill-packs/",
+    "optional-skills/"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "agents-md",
+    "playbook",
+    "claude",
+    "cursor",
+    "copilot",
+    "cline",
+    "aider",
+    "memory-bank",
+    "skills"
+  ],
+  "dependencies": {
+    "prompts": "^2.4.2"
+  }
+}
