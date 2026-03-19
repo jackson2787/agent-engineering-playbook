@@ -21,12 +21,7 @@ This repo bootstraps **two interconnected systems** into a real project reposito
 
 There is also an optional third layer:
 
-3. **The local project layer**: generated project-specific skills
-   The remaining files in `dynamic-skills/` are setup prompts for any repo-local generated helpers you still want on Day 1, such as deployment conventions. These are not runtime skills themselves.
-
-There is also an optional fourth layer:
-
-4. **The optional skill layer**: installable manual skill packages
+3. **The optional skill layer**: installable manual skill packages
    The files in `optional-skills/` are small, self-contained packages for
    Codex-style clients that add human-invoked, task-specific skills plus any
    supporting project resources those skills need.
@@ -35,7 +30,6 @@ The right way to think about this repo is:
 
 - `agent/AGENTS.md` is the operating system source asset
 - the reusable skill packs are the extensions that sharpen and specialize it
-- generated project-specific skills are local wiring and non-negotiables for one concrete repo
 - optional skills are installable add-ons for focused, manually invoked repo workflows
 
 ---
@@ -52,15 +46,17 @@ In this repository:
 - `agent/AGENTS.md` is the canonical operating guide source for target repos
 - the root `AGENTS.md` is only a lightweight template-repo guardrail
 - the skill packs are intentionally subordinate to that operating guide
-- the generated project-specific skills are subordinate to both the operating guide and the universal skill packs
+- the optional skills are subordinate add-ons to both the operating guide and the universal skill packs
 
 If you need an authority order, use this:
 
 1. `AGENTS.md` in the target repo, sourced from `agent/AGENTS.md`
 2. Universal skill packs in `.agent/skills/`
-3. Generated project-specific skills in `.agent/skills/project-*/`
+3. Optional skills in `.agent/skills/<skill-root>/` when explicitly installed
 
-Project-specific skills should **complement** the universal skills by defining local wiring and stack-specific constraints. They should not replace the higher-order workflow, approval model, or architectural discipline defined by `AGENTS.md`.
+Optional skills should **complement** the universal skills. They should not
+replace the higher-order workflow, approval model, or architectural discipline
+defined by `AGENTS.md`.
 
 ---
 
@@ -80,7 +76,7 @@ This repository builds on top of that operating model by packaging the parts tha
 - frontend web skill packs
 - frontend mobile skill packs
 - backend skill packs
-- setup prompts for any remaining project-specific local helpers
+- optional skill packages for narrower manual workflows
 
 In short:
 
@@ -142,59 +138,20 @@ Do not nest them by source area such as `frontend-skills/` or
 
 This repository is a template source, not the final installed layout.
 
-To install it into a target repository, use [docs/install-into-existing-repo.md](./docs/install-into-existing-repo.md).
+To install it into a target repository, use
+[docs/install-ai-guide.md](./docs/install-ai-guide.md).
 
 The short version:
 
-1. Choose the target repo's production profile:
-   - `agent/generated/AGENTS.frontend-web.md`
-   - `agent/generated/AGENTS.frontend-mobile.md`
-   - `agent/generated/AGENTS.backend-generic.md`
-   - `agent/generated/AGENTS.backend-hono-supabase.md`
-2. Copy the selected rendered file into the target repo root as `AGENTS.md`.
-3. Copy `skills/` into `.agent/skills/` in the target repo.
-4. Ask the user which production profile the repo should use if that has not already been decided.
-5. Copy only the relevant domain skill packs for that profile.
-6. Optionally use the remaining `dynamic-skills/` setup prompts if you want generated repo-local helper skills such as deployment conventions.
-7. Optionally install manual skill packages from `optional-skills/` by following [docs/install-optional-skills.md](./docs/install-optional-skills.md).
+1. Ask which domain to install: `universal`, `web`, `mobile`, or `supabase backend`.
+2. Copy the matching file from `agent/` into the target repo root as `AGENTS.md`.
+3. Copy the universal skills into `.agent/skills/`.
+4. Copy the selected domain skill roots into `.agent/skills/`.
+5. Ask which optional skills to install.
+6. Install any selected optional skills under `.agent/skills/<skill-root>/`.
 
-Recommended prompts for a target repo:
-
-### Initial Repository Bootstrap
-
-Use this once, after installing the selected rendered `AGENTS` profile and the skill packs into the target repo:
-
-```text
-Read AGENTS.md first. This repository uses AGENTS.md as the primary operating model and .agent/skills/ as the complementary capability layer.
-Before loading domain skill packs, confirm which production profile this repo is using: frontend web, frontend mobile, backend generic, or backend hono-supabase.
-When creating or refreshing `projectbrief.md`, `productContext.md`, `systemPatterns.md`, `techContext.md`, or `projectRules.md`, load `.agent/skills/bootstrap-memory-bank/SKILL.md` and work one document at a time with explicit human confirmation before writing.
-Examine the code base to create the memory bank according to the AGENTS 2.2 spec. Do not use readme files or other documentation as the primary source; examine the code and logic.
-After that, load the relevant universal skills from .agent/skills/ and follow the PLAN -> BUILD -> DIFF -> QA -> APPROVAL -> APPLY -> DOCS workflow.
-If project-specific skills exist under .agent/skills/project-*/, use them alongside the universal skills: they define this repo's specific wiring and local constraints, while the universal skills remain the higher-level source of truth for architecture, quality, and execution discipline.
-```
-
-### Optional Day 1 Deployment Skill Generation
-
-Use this when you want to generate a repo-local deployment helper from the remaining prompt in `dynamic-skills/`:
-
-```text
-This repo already uses AGENTS.md as the operating model. We are in setup mode.
-Treat the files in dynamic-skills/ as setup prompts, not runtime skills.
-If we need a project-specific deployment helper, run the remaining deployment prompt, discuss the proposed non-negotiables with me before writing anything, then generate the approved project-specific skill file under .agent/skills/project-*/.
-That generated skill must complement the universal skills and defer to AGENTS.md and the higher-order skill packs.
-```
-
-### Normal Session Commands
-
-After the repository has been bootstrapped, AGENT-ZERO-style day-to-day prompts are:
-
-```text
-startup
-BUILD
-QA
-Document it. Update the memory bank.
-/compact
-```
+Use the full step-by-step guide at
+[docs/install-ai-guide.md](./docs/install-ai-guide.md).
 
 ---
 
@@ -203,20 +160,7 @@ Document it. Update the memory bank.
 ### `agent/AGENTS.md`
 
 This is the heart of the system. It is the deployable operating-model asset
-that gets copied into the target repo root as `AGENTS.md`. In this repository,
-`agent/AGENTS.md` is the default `backend-generic` rendered profile, while the
-profile system is authored in:
-
-- `agent/AGENTS.core.md`
-- `agent/profiles/*.md`
-- `agent/generated/AGENTS.<profile>.md`
-- `agent/scripts/render-agents.js`
-
-Regenerate the rendered outputs with:
-
-```text
-node agent/scripts/render-agents.js --all
-```
+that gets copied into the target repo root as `AGENTS.md`.
 
 The installed `AGENTS.md` defines:
 
@@ -230,8 +174,8 @@ The installed `AGENTS.md` defines:
 - compaction recovery behavior
 
 If someone asks "how should the agent operate in the installed repo?", the
-answer should begin with `AGENTS.md` in that target repo, sourced from the
-selected rendered profile under `agent/generated/`.
+answer should begin with `AGENTS.md` in that target repo, copied from the
+appropriate file in `agent/`.
 
 ### `AGENTS.md`
 
@@ -247,23 +191,21 @@ These are the universal runtime skills. They are intended to live in
 
 They cover:
 
-- brainstorming
 - planning
 - execution
-- TDD
 - debugging
 - verification
 - documentation
-- legal/compliance checks
-- writing or maintaining skills themselves
+- Memory Bank bootstrap
 
 ### `backend-skills/`
 
-Reusable backend-oriented skill packs for APIs, databases, security posture, and backend architecture.
+Reusable backend-oriented skill packs for APIs and databases.
 
-Current source packs include a general backend architecture skill, a
-Supabase/Postgres best-practices pack, and a stack-specific Hono + Supabase
-backend architecture pack.
+Current source packs include:
+
+- `backend-architect-supabase-hono/`
+- `supabase-postgres-best-practices/`
 
 ### `frontend-skills/`
 
@@ -275,18 +217,6 @@ Subgroups:
 - `frontend-skills/frontend-shared-skills/` for skills shared across web and mobile
 - `frontend-skills/frontend-web-skills/` for React and Next.js specific skills
 - `frontend-skills/frontend-mobile-skills/` for Expo and React Native specific skills
-
-### `dynamic-skills/`
-
-These are **not** ordinary runtime skills. They are setup prompts intended for Day 1 bootstrapping in a target repo.
-
-Their job is to help the AI:
-
-- inspect the target repo
-- discuss repo-specific non-negotiables with the human
-- generate project-specific skills under `.agent/skills/project-*/`
-
-The remaining prompt covers deployment pipeline conventions.
 
 ### `optional-skills/`
 
@@ -341,12 +271,12 @@ Think of them as:
 - implementation guidance that helps the agent stay aligned under pressure
 
 The universal skills should remain broadly reusable across repos.
-The generated project-specific skills should remain narrowly local to one codebase.
+The optional skills should remain manually installed and manually invoked.
 
 That means:
 
 - universal skills express stable guidance
-- project-specific skills express local wiring, constraints, and exceptions
+- optional skills express narrower on-demand workflows
 - the installed `AGENTS.md` remains the highest-order behavioral contract
 
 ---
@@ -355,19 +285,21 @@ That means:
 
 In a target repository, the sequence should be:
 
-1. Install `agent/AGENTS.md` into the target repo as `AGENTS.md` and add the relevant skill packs.
-2. Use the initial repository bootstrap prompt to create the Memory Bank according to the AGENTS 2.2 spec.
-3. If needed, use the remaining `dynamic-skills/` prompt to generate a local deployment helper.
-4. On subsequent boots, use `startup`.
-5. Start work in `PLAN`, not direct implementation.
-6. Use `BUILD`, `QA`, and `Document it. Update the memory bank.` as explicit workflow transitions.
-7. Use `/compact` between tasks to keep context clean.
+1. Install the correct `agent/AGENTS*.md` file into the target repo as `AGENTS.md`.
+2. Install the universal skills into `.agent/skills/`.
+3. Install the matching domain skill pack roots into `.agent/skills/`.
+4. Optionally install any optional skills the repo actually needs.
+5. Use `bootstrap-memory-bank` to create the Memory Bank with human confirmation.
+6. On subsequent boots, use `startup`.
+7. Start work in `PLAN`, not direct implementation.
+8. Use `BUILD`, `QA`, and `Document it. Update the memory bank.` as explicit workflow transitions.
+9. Use `/compact` between tasks to keep context clean.
 
 If the AI is confused about "what matters most," it should prefer:
 
 - installed `AGENTS.md` over any summary prose
 - universal skills over vague ad hoc prompting
-- project-specific skills for repo-local rules, but only within that narrower scope
+- optional skills only when the task actually calls for them
 
 ---
 
@@ -390,6 +322,6 @@ This project is not presented as an official implementation of, fork of, or endo
 
 - Canonical operating guide source in this repo: [agent/AGENTS.md](./agent/AGENTS.md)
 - Template-repo guardrail file: [AGENTS.md](./AGENTS.md)
-- Detailed install guide: [docs/install-into-existing-repo.md](./docs/install-into-existing-repo.md)
-- Optional skill install guide: [docs/install-optional-skills.md](./docs/install-optional-skills.md)
+- Fresh install guide: [docs/install-ai-guide.md](./docs/install-ai-guide.md)
+- Legacy install guides: [docs/install-into-existing-repo.md](./docs/install-into-existing-repo.md) and [docs/install-optional-skills.md](./docs/install-optional-skills.md)
 - Upstream operating-model reference: [AGENT-ZERO](https://github.com/msitarzewski/AGENT-ZERO)
