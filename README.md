@@ -190,7 +190,7 @@ target repository.
 It tells the AI to:
 
 - inspect code and executable project files first
-- ignore README-style prose as grounding truth during the initial sweep
+- exclude project markdown and other prose documentation during the initial sweep
 - draft the foundation Memory Bank files
 - keep unresolved human-driven claims in explicit pending-confirmation sections
 - create the minimum operational scaffolding needed for AGENTS 2.2 startup

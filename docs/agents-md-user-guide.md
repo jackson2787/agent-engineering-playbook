@@ -83,7 +83,7 @@ On Day 1, create the initial Memory Bank by pointing the AI to
 That contract tells the AI to:
 
 - inspect code, config, tests, manifests, CI, schemas, and runtime files first
-- avoid using README files or other prose as grounding truth during the primary sweep
+- exclude project markdown and other prose documentation during the primary sweep
 - draft the five foundation files of the Memory Bank
 - keep anything human-dependent in clearly labeled pending-confirmation sections
 - add the minimum operational scaffolding needed for normal AGENTS.md startup

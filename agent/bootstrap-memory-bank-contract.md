@@ -46,25 +46,28 @@ sessions.
 - Examine source code, folder structure, manifests, lockfiles, configs, tests,
   CI files, deployment files, schemas, generated types, and migrations as the
   primary evidence base.
-- During the primary evidence sweep, do not use README files or other prose as
-  grounding truth.
-- Prose may be consulted later only to resolve ambiguity or generate questions.
+- During bootstrap, do not read project markdown or other prose documentation as
+  evidence.
+- The only markdown exception is this contract itself, and it may be used only
+  as procedure, never as repository evidence.
+- Do not read `AGENTS.md`, README files, docs, ADRs, task notes, or existing
+  Memory Bank markdown during the primary scaffold pass.
+- If a bootstrap is being refreshed rather than created from scratch, compare
+  existing Memory Bank files only after the code-backed draft exists, and treat
+  them as claims to verify rather than as truth.
 - Separate `Observed`, `Inferred`, and `Needs confirmation`.
 - Never turn weak guesses into Memory Bank facts.
 - Prefer sparse truth over detailed fiction.
-- If a Memory Bank file already exists, revise it carefully. Do not overwrite
-  confirmed local truth blindly.
 - Do not create a Memory Bank in this template repository. This contract is for
   an installed target repo.
 
 ## Preflight
 
 1. Confirm you are operating in the target repository, not the template repo.
-2. Read the installed `AGENTS.md`.
-3. Inspect any existing `memory-bank/` files before changing them.
-4. Check whether an installed domain pack includes a bootstrap map or similar
-   repo-grounding reference. Example:
-   `.agent/skills/backend-architect-supabase-hono/references/memory-bank-bootstrap-map.md`
+2. Determine whether this is an initial bootstrap or a deliberate refresh.
+3. If this is an initial bootstrap, do not read any existing project markdown.
+4. If this is a refresh, postpone reading existing Memory Bank markdown until
+   after the code-backed draft exists.
 
 ## Phase 1: Primary Evidence Sweep
 
@@ -77,6 +80,8 @@ Inspect the repository directly before writing anything:
 - auth, billing, onboarding, and external integration flows
 - CI workflows and deployment files
 - migrations, schemas, SQL, generated types, and infrastructure definitions
+
+Ignore markdown and other prose documents during this phase.
 
 Build an evidence notebook with three buckets:
 
@@ -251,7 +256,8 @@ End with a concise summary of:
 ```text
 Read `.agent/bootstrap-memory-bank-contract.md` and execute it.
 Use code, config, tests, manifests, CI, schemas, and runtime files as primary
-evidence. Do not use README files or other prose as grounding truth during the
-primary sweep. If something is not provable from the repo, keep it in a clearly
+evidence. Do not read project markdown or other prose documentation during the
+bootstrap pass. Treat this contract as procedure only, not as repository
+evidence. If something is not provable from the repo, keep it in a clearly
 labeled pending-confirmation section instead of inventing it.
 ```
