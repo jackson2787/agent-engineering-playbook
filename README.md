@@ -126,15 +126,17 @@ These are standalone skills selected during installation:
 | **best-practices-audit** | Produces a structured audit against installed playbook and skill packs |
 | **legal-compliance-checker** | Adds legal/regulatory review framing for privacy, payments, health data |
 
-### sync-api (manual install)
+### sync-api (agent-assisted install)
 
-The `sync-api` skill requires project-level setup beyond what the installer handles — scripts in your project root, Orval config, npm dependencies. Install it manually by asking your agent:
+The `sync-api` skill requires project-level setup beyond a simple file copy — scripts in your project root, Orval config, npm dependencies. When selected during `npx agent-playbook`, it gets staged to `docs/memory-bank/skills-to-install/sync-api/` instead of installed directly.
+
+To complete installation, ask your agent:
 
 ```
-"Read optional-skills/sync-api/installation.md and execute it."
+"Read docs/memory-bank/skills-to-install/sync-api/installation.md and execute it."
 ```
 
-See `optional-skills/sync-api/installation.md` for the full setup guide.
+The agent copies the files, installs dependencies, and cleans up the staging directory.
 
 ---
 

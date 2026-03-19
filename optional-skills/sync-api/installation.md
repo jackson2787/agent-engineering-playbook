@@ -1,5 +1,9 @@
 # Sync API Installation
 
+This skill package was staged here by `agent-playbook init`. It requires
+agent-assisted installation because it adds scripts and config to the project
+root, not just a skill to `.agent/skills/`.
+
 This package is intended for TypeScript frontend repositories that:
 
 - consume an OpenAPI 3.x specification
@@ -9,22 +13,21 @@ This package is intended for TypeScript frontend repositories that:
 
 ## What Gets Installed
 
-Copy these package files into the target repository:
+Copy these files from this staged directory into the target repository:
 
-| Source in this repo | Destination in target repo |
+| Source (this directory) | Destination |
 | --- | --- |
-| `optional-skills/sync-api/resources/scripts/slice-openapi.js` | `scripts/slice-openapi.js` |
-| `optional-skills/sync-api/resources/scripts/generate-api.js` | `scripts/generate-api.js` |
-| `optional-skills/sync-api/resources/assets/orval.config.template.ts` | `orval.config.ts` |
-| `optional-skills/sync-api/skills/sync-api/` | `.agent/skills/sync-api/` |
+| `resources/scripts/slice-openapi.js` | `scripts/slice-openapi.js` |
+| `resources/scripts/generate-api.js` | `scripts/generate-api.js` |
+| `resources/assets/orval.config.template.ts` | `orval.config.ts` |
+| `skills/sync-api/` | `.agent/skills/sync-api/` |
 
 The installed `.agent/skills/sync-api/` directory is the small operational
 skill that can be manually invoked later inside the target repo.
 
 ## Package Scripts
 
-After copying the resources, add these scripts to the target repo's
-`package.json`:
+After copying the resources, add these scripts to the project's `package.json`:
 
 ```json
 {
@@ -85,10 +88,26 @@ If the target project uses different paths, update:
 
 to match the target repo's structure.
 
+## Cleanup
+
+After installation is complete and verified, delete this staged directory:
+
+```bash
+rm -rf docs/memory-bank/skills-to-install/sync-api
+```
+
+If no other skills remain in `docs/memory-bank/skills-to-install/`, remove
+that directory too:
+
+```bash
+rmdir docs/memory-bank/skills-to-install 2>/dev/null
+```
+
 ## Recommended Usage
 
 1. Follow this guide to copy the scripts, template, and `.agent/skills/sync-api/`
    directory into the target repo.
 2. Verify the copied files, `orval.config.ts`, and `package.json` entries.
-3. Invoke the installed `.agent/skills/sync-api/` skill only when you need to
+3. Run the cleanup step above to remove this staging directory.
+4. Invoke the installed `.agent/skills/sync-api/` skill only when you need to
    run an API sync or investigate contract drift.
